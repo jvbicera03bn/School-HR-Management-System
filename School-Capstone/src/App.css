@@ -5,14 +5,44 @@
     --mainFont: 'Raleway', sans-serif;
 }
 
-.side_bar {
-    background-color: var(--darkGreen);
-    width: 20%;
-    height:100vh
+a {
+    text-decoration: none;
+    color: white
 }
 
+
+.App {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    height: 100vh;
+}
+
+.side_bar {
+    background-color: var(--darkGreen);
+    flex: 1;
+}
+
+.content_window {
+    flex: 4
+}
+
+.banner {
+    align-items: center;
+    display: flex;
+    background-color: var(--yellow);
+    padding:.625rem 1.25rem;
+    gap:20px;
+}
+.banner h2 {
+    font-size: 25px;
+    font-weight: 600;
+}
+.banner img{
+    width:50px
+}
 .profile_info {
-    padding: 20px 0px;
+    padding: 1.25rem 0rem;
     text-align: center;
     width: 100%
 }
@@ -30,12 +60,60 @@
     width: 50%;
     border-radius: 50%;
 }
-.school_name{
-    border-top: .0625rem solid var(--white) ;
+
+.school_name {
+    border-top: .0625rem solid var(--white);
     text-align: center;
-    padding:1.25rem 0rem;
-    color:var(--yellow)
+    padding: 1.25rem 0rem;
+    color: var(--yellow)
 }
-.school_name p{
+
+.school_name p {
     font-size: .8125rem;
+}
+
+.first_layer {
+    background-color: var(--darkGreen);
+}
+
+.first_layer,
+.second_layer {
+    font-weight: 500;
+    font-size: 18px;
+    flex-direction: column;
+    list-style-type: none;
+    display: flex;
+    gap: .9375rem;
+    padding: 5% 17%;
+}
+
+.second_layer {
+    padding: 0 0 0 13%;
+}
+
+.drop_down_show {
+    display: block;
+    transition-property: height;
+}
+
+.drop_down_hide {
+    display: none;
+}
+
+.nav_icon {
+    vertical-align: top;
+    font-size: 1.25rem;
+    padding-right: .3125rem;
+}
+
+.nav_bar li {
+    vertical-align: middle;
+    color: var(--white);
+    cursor: pointer;
+}
+.nav_bar li:hover{
+    color:#FFDE59
+}
+a:hover{
+    color: #FFDE59
 }
