@@ -1,46 +1,44 @@
-:root {
-    --darkGreen: #033403;
-    --white: #fff;
-    --yellow: #FFDE59;
-    --mainFont: 'Raleway', sans-serif;
-}
-
 a {
     text-decoration: none;
     color: white
 }
-
 
 .App {
     display: flex;
     flex-direction: row;
     justify-content: stretch;
     height: 100vh;
+    overflow: hidden;
 }
 
 .side_bar {
     background-color: var(--darkGreen);
-    flex: 1;
+    height: 100vh;
+    width: 20vw;
 }
 
 .content_window {
-    flex: 4
+    width: 80vw;
+    height: 100vh;
 }
 
 .banner {
     align-items: center;
     display: flex;
     background-color: var(--yellow);
-    padding:.625rem 1.25rem;
-    gap:20px;
+    padding: .625rem 1.25rem;
+    gap: 1.25rem;
 }
+
 .banner h2 {
-    font-size: 25px;
+    font-size: 1.5625rem;
     font-weight: 600;
 }
-.banner img{
-    width:50px
+
+.banner img {
+    width: 3.125rem
 }
+
 .profile_info {
     padding: 1.25rem 0rem;
     text-align: center;
@@ -78,12 +76,13 @@ a {
 
 .first_layer,
 .second_layer {
+    white-space: nowrap;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 1.5625rem;
     flex-direction: column;
     list-style-type: none;
     display: flex;
-    gap: .9375rem;
+    gap: 2.1875rem;
     padding: 5% 17%;
 }
 
@@ -101,7 +100,7 @@ a {
 }
 
 .nav_icon {
-    vertical-align: top;
+    vertical-align: middle;
     font-size: 1.25rem;
     padding-right: .3125rem;
 }
@@ -111,9 +110,149 @@ a {
     color: var(--white);
     cursor: pointer;
 }
-.nav_bar li:hover{
-    color:#FFDE59
-}
-a:hover{
+
+.nav_bar li:hover {
     color: #FFDE59
+}
+
+a:hover {
+    color: #FFDE59
+}
+.main_con
+.home {
+    display: flex;
+    flex-direction: column;
+}
+
+.home .welcome_banner {
+    height: 11vh;
+    text-align: center;
+    border-radius: 10px;
+    padding: 40px;
+    margin: 1.25rem auto 0rem auto;
+    width: 69vw;
+    border: .0625rem solid black;
+}
+
+.welcome_banner h3 {
+    font-weight: 300;
+    font-size: 2.5rem;
+}
+
+.welcome_banner h1 {
+    font-size: 3.125rem;
+}
+
+.second_section {
+    height: 40vh;
+    width: 72vw;
+    justify-content: space-around;
+    margin: 0rem auto;
+    display: flex;
+    text-align: center;
+}
+
+.second_section .requirement_list {
+    width: 35vw;
+}
+
+.second_section h3 {
+    padding: 2% 0rem;
+}
+
+.requirement_list button {
+    padding: 0.7% 1.5%;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin: 4% auto;
+}
+
+
+.requirement_list table {
+    font-size: 1rem;
+    width: 32vw;
+    border-collapse: collapse;
+    margin: 0rem auto;
+}
+
+.requirement_list th {
+    padding: 2% 1.5%;
+    width: max-content;
+    border: .0625rem solid black;
+}
+
+.requirement_list td {
+    font-size: 90%;
+    padding: 2.3% 2%;
+    border: .0625rem solid black;
+}
+
+.announcement_list {
+    width: 35vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.announcement_list button {
+    padding: 0.7% 1.5%;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin: 1.5% auto;
+}
+
+.announcement_list textarea {
+    padding: 5%;
+    font-size: 1.25rem;
+    height: 54%;
+    resize: none;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.announcement_list ul {
+    padding-top: 1.5%;
+    padding-left: 8.5%;
+    text-align: justify;
+    display: flex;
+    height: 28vh;
+    flex-direction: column;
+    gap: .625rem;
+}
+
+.announcement_list li::before {
+    content: "⦿ ";
+}
+
+.last_section {
+    border-radius: 10x;
+    border: .0625rem solid black;
+    width: 73vw;
+    height: 20vh;
+    padding: .625rem;
+    margin: 0rem auto;
+    border-radius: .625rem;
+}
+
+.last_section h3 {
+    padding: 0.7% 0.7% 1% 0.7%;
+}
+
+.last_section ul {
+    display: flex;
+    flex-direction: column;
+   
+    padding-left: .9375rem;
+}
+
+.last_section li {
+    vertical-align: top;
+    padding-bottom: 0.8%;
+}
+
+.last_section li::before {
+    vertical-align: top;
+    position: relative;
+    top:4px;
+    content: "►  ";
 }
