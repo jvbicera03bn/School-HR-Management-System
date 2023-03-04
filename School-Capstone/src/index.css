@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --darkGreen: #033403;
+    --darkGreen: #257849;
     --white: #fff;
     --yellow: #FFDE59;
     --mainFont: 'Raleway', sans-serif;
@@ -16,6 +16,11 @@
     list-style-type: none;
 }
 
-button:hover {
+button:hover,
+input[type="submit"]:hover {
     cursor: pointer;
+}
+
+input[type="submit"] {
+    width: fit-content
 }

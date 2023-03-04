@@ -19,8 +19,8 @@ export const Home = () => {
             date: "3/3/2023"
         },
         {
-            name: "Shelley Mae Carreon",
-            docType: "TOR",
+            name: "Chesca Cutie",
+            docType: "ID",
             date: "3/3/2023"
         },
     ]

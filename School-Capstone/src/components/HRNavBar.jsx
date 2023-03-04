@@ -2,14 +2,13 @@ import { useState } from 'react'
 import { NavLink } from "react-router-dom"
 import React from 'react'
 
-export const NavBar = (props) => {
-    console.log(props)
+export const HRNavBar = (props) => {
     const [empDropDownStatus, setDropDownStatus] = useState(false)
     return (
         <div className='nav_bar'>
             <ul className='first_layer'>
                 <li>
-                    <NavLink to="/">
+                    <NavLink to="/hr/home">
                         <span className="nav_icon material-symbols-outlined">home</span>
                         Home
                     </NavLink>
@@ -24,19 +23,19 @@ export const NavBar = (props) => {
                 <li className={empDropDownStatus ? "drop_down_show" : "drop_down_hide"}>
                     <ul className='second_layer'>
                         <li>
-                            <NavLink to="/employee/addEmployee">
+                            <NavLink to="/hr/employee/addEmployee">
                                 <span className="nav_icon material-symbols-outlined">person_add</span>
                                 Add Employee
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/employee/listofemployee">
+                            <NavLink to="/hr/employee/listofemployee">
                                 <span className="nav_icon material-symbols-outlined">group</span>
                                 Employee List
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/employee/setattendance">
+                            <NavLink to="/hr/employee/setattendance">
                                 <span className="nav_icon material-symbols-outlined">emoji_people</span>
                                 Set Attendance
                             </NavLink>
@@ -44,19 +43,19 @@ export const NavBar = (props) => {
                     </ul>
                 </li>
                 <li>
-                    <NavLink to="/requirements">
+                    <NavLink to="/hr/requirements">
                         <span className="nav_icon material-symbols-outlined">description</span>
                         Requirements
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/payroll">
+                    <NavLink to="/hr/payroll">
                         <span className="nav_icon material-symbols-outlined">account_balance</span>
                         Payroll
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/request">
+                    <NavLink to="/hr/request">
                         <span className="nav_icon material-symbols-outlined">inventory</span>
                         Request
                     </NavLink>

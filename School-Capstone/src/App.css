@@ -11,13 +11,62 @@ a {
     overflow: hidden;
 }
 
+.login {
+    /*  background-image: ; */
+    margin: 0vh auto;
+    border-radius: 10px;
+    height: 100vh;
+    width: 100vw;
+}
+
+.login .title {
+    padding: 2%;
+    background-color: var(--yellow);
+    display: flex;
+    align-items: center;
+    gap: 2.5vw;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.login form {
+    background-color: var(--darkGreen);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5vh;
+    padding: 3% 10% 10% 10%;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.login form h2 {
+    color: white
+}
+
+.login input {
+    padding: 3% 5%;
+    width: 70%;
+    border-radius: 5px;
+}
+
+
+
+.login img {
+    width: 3.5vw
+}
+
+.login .form_container {
+    margin: 25vh auto;
+    width: 30vw;
+}
+
 .side_bar {
     background-color: var(--darkGreen);
     height: 100vh;
     width: 20vw;
 }
-.active{
-    color:var(--yellow)
+
+.active {
+    color: var(--yellow)
 }
 
 .content_window {
@@ -121,8 +170,8 @@ a {
 a:hover {
     color: #FFDE59
 }
-.main_con
-.home {
+
+.main_con .home {
     display: flex;
     flex-direction: column;
 }
@@ -244,7 +293,7 @@ a:hover {
 .last_section ul {
     display: flex;
     flex-direction: column;
-   
+
     padding-left: .9375rem;
 }
 
@@ -256,6 +305,10 @@ a:hover {
 .last_section li::before {
     vertical-align: top;
     position: relative;
-    top:4px;
+    top: 4px;
     content: "►  ";
 }
+
+.employee_table {
+
+}   
