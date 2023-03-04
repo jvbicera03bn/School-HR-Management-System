@@ -16,6 +16,9 @@ a {
     height: 100vh;
     width: 20vw;
 }
+.active{
+    color:var(--yellow)
+}
 
 .content_window {
     width: 80vw;

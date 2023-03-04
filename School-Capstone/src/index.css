@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 :root {
     --darkGreen: #033403;
     --white: #fff;
@@ -6,13 +7,15 @@
     --mainFont: 'Raleway', sans-serif;
     font-size: 100%;
 }
-*{
-margin: 0px;
-padding: 0px;
-border: 0px;
-font-family: 'Raleway', sans-serif;
-list-style-type:none;
+
+* {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    font-family: 'Raleway', sans-serif;
+    list-style-type: none;
 }
-button:hover{
+
+button:hover {
     cursor: pointer;
 }

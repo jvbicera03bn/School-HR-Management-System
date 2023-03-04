@@ -1,15 +1,19 @@
 import { useState } from 'react'
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import React from 'react'
 
-export const NavBar = () => {
+export const NavBar = (props) => {
+    console.log(props)
     const [empDropDownStatus, setDropDownStatus] = useState(false)
     return (
         <div className='nav_bar'>
             <ul className='first_layer'>
-                <li><Link to="/">
-                    <span className="nav_icon material-symbols-outlined">home</span>
-                    Home</Link></li>
+                <li>
+                    <NavLink to="/">
+                        <span className="nav_icon material-symbols-outlined">home</span>
+                        Home
+                    </NavLink>
+                </li>
                 <li
                     onClick={() => { setDropDownStatus(!empDropDownStatus) }}
                 >
@@ -20,48 +24,48 @@ export const NavBar = () => {
                 <li className={empDropDownStatus ? "drop_down_show" : "drop_down_hide"}>
                     <ul className='second_layer'>
                         <li>
-                            <Link to="/employee/addEmployee">
+                            <NavLink to="/employee/addEmployee">
                                 <span className="nav_icon material-symbols-outlined">person_add</span>
                                 Add Employee
-                            </Link>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link to="/employee/listofemployee">
+                            <NavLink to="/employee/listofemployee">
                                 <span className="nav_icon material-symbols-outlined">group</span>
                                 Employee List
-                            </Link>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link to="/employee/setattendance">
+                            <NavLink to="/employee/setattendance">
                                 <span className="nav_icon material-symbols-outlined">emoji_people</span>
                                 Set Attendance
-                            </Link>
+                            </NavLink>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <Link to="/requirements">
+                    <NavLink to="/requirements">
                         <span className="nav_icon material-symbols-outlined">description</span>
                         Requirements
-                    </Link>
+                    </NavLink>
                 </li>
                 <li>
-                    <Link to="/payroll">
+                    <NavLink to="/payroll">
                         <span className="nav_icon material-symbols-outlined">account_balance</span>
                         Payroll
-                    </Link>
+                    </NavLink>
                 </li>
                 <li>
-                    <Link to="/request">
+                    <NavLink to="/request">
                         <span className="nav_icon material-symbols-outlined">inventory</span>
                         Request
-                    </Link>
+                    </NavLink>
                 </li>
-                <li>
-                    <Link>
-                        <span className="nav_icon material-symbols-outlined">logout</span>
-                        Logout
-                    </Link>
+                <li
+                    onClick={props.LogOutHandler}
+                >
+                    <span className="nav_icon material-symbols-outlined">logout</span>
+                    Logout
                 </li>
             </ul>
         </div>
