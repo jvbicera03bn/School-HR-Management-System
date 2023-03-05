@@ -183,7 +183,7 @@ a:hover {
     padding: 40px;
     margin: 1.25rem auto 0rem auto;
     width: 69vw;
-    border: .0625rem solid black;
+    border: 2px solid var(--darkGreen);
 }
 
 .welcome_banner h3 {
@@ -230,13 +230,13 @@ a:hover {
 .requirement_list th {
     padding: 2% 1.5%;
     width: max-content;
-    border: .0625rem solid black;
+    border: 2px solid var(--darkGreen);
 }
 
 .requirement_list td {
     font-size: 90%;
     padding: 2.3% 2%;
-    border: .0625rem solid black;
+    border: 2px solid var(--darkGreen);
 }
 
 .announcement_list {
@@ -278,7 +278,7 @@ a:hover {
 
 .last_section {
     border-radius: 10x;
-    border: .0625rem solid black;
+    border: 2px solid var(--darkGreen);
     width: 73vw;
     height: 20vh;
     padding: .625rem;
@@ -309,6 +309,4 @@ a:hover {
     content: "►  ";
 }
 
-.employee_table {
-
-}   
+.employee_table {}

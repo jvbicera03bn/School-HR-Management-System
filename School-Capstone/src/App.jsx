@@ -1,6 +1,7 @@
 import './App.css'
 import { Route, Routes } from "react-router-dom"
 import { useState, useContext } from 'react'
+/* Route For HR */
 import { AddEmployee } from './routes/Employee/routes/AddEmployee'
 import { ListOfEmployee } from './routes/Employee/routes/ListOfEmployee'
 import { SetAttendance } from './routes/Employee/routes/SetAttendance'

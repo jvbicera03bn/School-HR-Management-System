@@ -107,7 +107,7 @@ export const Home = () => {
                         </tr>
                         {mappedDocumentsPassed}
                     </table>
-                    <Link to="requirements"><button>View More</button></Link>
+                    <Link to="/hr/requirements"><button>View More</button></Link>
                 </div>
                 <div className='announcement_list'>
                     <h3>
