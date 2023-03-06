@@ -9,7 +9,7 @@ import protect from "../middleware/authMiddleware.js"
 router.route('/users')
     .get(getUsers)
 router.route("/login")
-    .post( getUserByEmail)
+    .post(getUserByEmail)
 router.route("/register")
     .post(registerUser)
 /* Private Routes */

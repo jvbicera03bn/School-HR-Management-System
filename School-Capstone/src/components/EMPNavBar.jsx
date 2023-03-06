@@ -1,16 +1,17 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { NavLink } from "react-router-dom"
-import React from 'react'
+import { AuthContext } from "../context/AuthContext"
 
 export const EMPNavBar = (props) => {
+    const { logOut, useInfo } = useContext(AuthContext)
 
     const [empDropDownStatus, setDropDownStatus] = useState(false)
-    
+
     return (
         <div className='nav_bar'>
             <ul className='first_layer'>
                 <li>
-                    <NavLink to="/home">
+                    <NavLink to="home">
                         <span className="nav_icon material-symbols-outlined">home</span>
                         Home
                     </NavLink>
@@ -25,19 +26,19 @@ export const EMPNavBar = (props) => {
                 <li className={empDropDownStatus ? "drop_down_show" : "drop_down_hide"}>
                     <ul className='second_layer'>
                         <li>
-                            <NavLink to="/employee/addEmployee">
+                            <NavLink to="employee/addEmployee">
                                 <span className="nav_icon material-symbols-outlined">person_add</span>
                                 Add Employee
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/employee/listofemployee">
+                            <NavLink to="employee/listofemployee">
                                 <span className="nav_icon material-symbols-outlined">group</span>
                                 Employee List
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/employee/setattendance">
+                            <NavLink to="employee/setattendance">
                                 <span className="nav_icon material-symbols-outlined">emoji_people</span>
                                 Set Attendance
                             </NavLink>
@@ -45,25 +46,25 @@ export const EMPNavBar = (props) => {
                     </ul>
                 </li>
                 <li>
-                    <NavLink to="/requirements">
+                    <NavLink to="/employee/requirements">
                         <span className="nav_icon material-symbols-outlined">description</span>
                         Requirements
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/payroll">
+                    <NavLink to="/employee/payroll">
                         <span className="nav_icon material-symbols-outlined">account_balance</span>
                         Payroll
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/request">
+                    <NavLink to="/employee/request">
                         <span className="nav_icon material-symbols-outlined">inventory</span>
                         Request
                     </NavLink>
                 </li>
                 <li
-                    onClick={props.LogOutHandler}
+                    onClick={logOut}
                 >
                     <span className="nav_icon material-symbols-outlined">logout</span>
                     Logout

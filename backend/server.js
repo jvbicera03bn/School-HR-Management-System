@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import bodyParser from "body-parser"
 import colors from "colors"
+import cors from "cors"
 import connectDB from "./config/db.js"
 dotenv.config()
 
@@ -13,7 +14,7 @@ const app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
+app.use(cors());
 app.use('/api/user', userRoutes)
 
 app.listen(port, () => {

@@ -143,8 +143,7 @@ a {
 }
 
 .drop_down_show {
-    display: block;
-    transition-property: height;
+    display:block;
 }
 
 .drop_down_hide {

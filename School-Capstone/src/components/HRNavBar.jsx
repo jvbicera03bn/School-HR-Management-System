@@ -1,8 +1,9 @@
-import { useState } from 'react'
 import { NavLink } from "react-router-dom"
-import React from 'react'
+import { useContext, useState } from "react"
+import { AuthContext } from "../context/AuthContext"
 
-export const HRNavBar = (props) => {
+export const HRNavBar = () => {
+    const { logOut, useInfo } = useContext(AuthContext)
     const [empDropDownStatus, setDropDownStatus] = useState(false)
     return (
         <div className='nav_bar'>
@@ -13,9 +14,7 @@ export const HRNavBar = (props) => {
                         Home
                     </NavLink>
                 </li>
-                <li
-                    onClick={() => { setDropDownStatus(!empDropDownStatus) }}
-                >
+                <li onClick={() => { setDropDownStatus(!empDropDownStatus) }}>
                     <span className="nav_icon material-symbols-outlined">person</span>
                     Employee
                     <span className="drop_down nav_icon material-symbols-outlined">expand_more</span>
@@ -61,7 +60,7 @@ export const HRNavBar = (props) => {
                     </NavLink>
                 </li>
                 <li
-                    onClick={props.LogOutHandler}
+                    onClick={logOut}
                 >
                     <span className="nav_icon material-symbols-outlined">logout</span>
                     Logout

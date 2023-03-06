@@ -4,13 +4,16 @@ import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import { AuthContextProvider } from './context/AuthContext'
+import { CookiesProvider } from 'react-cookie';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <AuthContextProvider>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        </AuthContextProvider>
+        <CookiesProvider>
+            <AuthContextProvider>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </AuthContextProvider>
+        </CookiesProvider>
     </React.StrictMode>,
 )

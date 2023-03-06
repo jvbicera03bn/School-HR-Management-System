@@ -15,11 +15,6 @@ const getUserByEmail = asyncHandler(async (req, res) => {
         const user = await User.findOne({ email })
         if (user && (await bcrypt.compare(password, user.password))) {
             res.json({
-                _id: user.id,
-                firstName: user.firstName,
-                middleName: user.middleName,
-                lastName: user.lastName,
-                userType: user.userType,
                 token: generateToken(user._id)
             })
         } else {
@@ -51,8 +46,8 @@ const registerUser = asyncHandler(async (req, res) => {
             message: `User ${user.firstName} ${user.middleName} ${user.lastName} Has been registered`,
             _id: user.id,
             firstName: user.firstName,
-            middleName: user.firstName,
-            lastName: user.firstName,
+            middleName: user.middleName,
+            lastName: user.lastName,
             token: generateToken(user._id)
         })
     } catch (error) {
@@ -71,22 +66,19 @@ const registerUser = asyncHandler(async (req, res) => {
     @access Private 
 */
 const getMe = asyncHandler(async (req, res) => {
-    const { _id, firstName, lastName, middleName, userType, email } = await User.findById(req.user.id)
-
-    res.status(200).json({
-        _id:_id, 
-        firstName:firstName, 
-        lastName:lastName, 
-        middleName:middleName, 
-        userType:userType, 
-        email:email,
-    })
-    /*   try {
-          res.status(200).json({ message: "this is me" })
-      } catch (error) {
-          console.log(error)
-          res.status(400).json(error.message)
-      } */
+    const { _id, firstName, lastName, middleName, userType, email } = await User.findById(req.user._id)
+    try {
+        res.status(200).json({
+            _id: _id,
+            firstName: firstName,
+            lastName: lastName,
+            middleName: middleName,
+            userType: userType,
+            email: email,
+        })
+    } catch (error) {
+        res.staus(400).json(error)
+    }
 })
 /* ------------Not-Auth---------- */
 /* 

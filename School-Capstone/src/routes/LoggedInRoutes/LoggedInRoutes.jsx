@@ -1,28 +1,33 @@
 import { Navigate, Outlet } from "react-router-dom"
 import { HRNavBar } from '../../components/HRNavBar'
-import { useContext } from "react"
+import { EMPNavBar } from '../../components/EMPNavBar'
+import { useContext, useState, useEffect } from "react"
 import { AuthContext } from "../../context/AuthContext"
 
-
 export const LoggedInRoutes = () => {
-    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext)
-
-    function LogOutHandler() {
-        setIsLoggedIn(false)
-    }
+    const { isLoggedIn, userInfo } = useContext(AuthContext)
+    const [userProfileInfo, setUserProfileInfo] = useState()
+    useEffect(() => {
+        if (userInfo) {
+            setUserProfileInfo({
+                name: `${userInfo.firstName} ${userInfo.lastName}`,
+                userType: userInfo.userType
+            })
+        }
+    }, [userInfo]);
     return (
         <>
             <div className='side_bar'>
                 <div className='profile_info'>
                     <img className='profile_picture' src="/img/profile-placeholder.jpeg" alt="profile" />
-                    <h3>Juan Dela Cruz</h3>
-                    <p>Human Resource</p>
+                    <h3>{userProfileInfo ? `${userProfileInfo.name}` : `Loading Profile`}</h3>
+                    <p>{userProfileInfo && userProfileInfo.userType == "HR" ? 'Human Resource' : "Employee"}</p>
                 </div>
                 <div className='school_name'>
                     <h2>ASIATECH</h2>
                     <p>Human Resource Management System</p>
                 </div>
-                <HRNavBar LogOutHandler={LogOutHandler} />
+                {userProfileInfo && userProfileInfo.userType == "HR" ? <HRNavBar /> : <EMPNavBar />}
             </div>
             <div className='content_window'>
                 <div className='banner'>

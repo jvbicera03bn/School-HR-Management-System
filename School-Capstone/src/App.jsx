@@ -1,6 +1,6 @@
 import './App.css'
 import { Route, Routes } from "react-router-dom"
-import { useState, useContext } from 'react'
+import { useState, useContext,useEffect } from 'react'
 /* Route For HR */
 import { AddEmployee } from './routes/Employee/routes/AddEmployee'
 import { ListOfEmployee } from './routes/Employee/routes/ListOfEmployee'
@@ -16,11 +16,18 @@ import { AuthContext } from './context/AuthContext'
 
 
 const App = () => {
-    const { userType } = useContext(AuthContext)
+    const { userInfo } = useContext(AuthContext)
+    const [userType, setUserInfo] = useState()
+    useEffect(() => {
+        if (userInfo) {
+            console.log(userInfo)
+            setUserInfo(userInfo.userType)
+        }
+    }, [userInfo]);
     return (
         <div className="App">
             <Routes>
-                {userType == "EMP"
+                {userInfo && userType == "EMP"
                     ? < Route path='/employee' element={<LoggedInRoutes />}>
                         <Route path='home' element={<Home />} />
                         <Route path="employee">
@@ -44,8 +51,8 @@ const App = () => {
                         <Route path='request' element={<Request />} />
                     </Route>
                 }
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/*" element={<Login />} />
+                {/* <Route path="/register" element={<Register />} /> */}
             </Routes>
         </div >
     )
