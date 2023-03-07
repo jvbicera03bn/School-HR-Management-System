@@ -29,7 +29,7 @@ export const Login = () => {
         }
     }, [userInfo, isLoggedIn]);
     return (
-        isLoggedIn && newIsLoggedIn
+        isLoggedIn
             ? <Navigate to={isLoggedIn && userType == "EMP" ? "/employee/home" : "/hr/home"} />
             : < div className='login' >
                 <div className='form_container'>

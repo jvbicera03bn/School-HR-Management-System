@@ -143,7 +143,7 @@ a {
 }
 
 .drop_down_show {
-    display:block;
+    display: block;
 }
 
 .drop_down_hide {
@@ -308,4 +308,66 @@ a:hover {
     content: "►  ";
 }
 
-.employee_table {}
+/* Employee Section */
+.add_employee {
+    margin: 5vh 4vw;
+}
+
+.add_employee h1 {
+    margin-bottom: 5vh;
+}
+
+.add_employee form {
+    display: flex;
+    flex-direction: column;
+    gap: 4.1vw
+}
+
+.add_employee form .input_group {
+    display: flex;
+    flex-direction: row;
+    gap: 7vw
+}
+
+.add_employee input,
+.add_employee select {
+    font-size: 1.125rem;
+    border-radius: .3125rem;
+    padding: 15px 2vw;
+    border: 2px solid var(--darkGreen);
+    width: 15vw;
+}
+
+.add_employee input[type="date"] {
+    width: 15vw;
+}
+
+.add_employee input[type="email"] {
+    width: 41.2vw;
+}
+
+.add_employee select {
+    width: 38.5vh
+}
+
+.third_form_group select {
+    width: 30vh
+}
+
+.third_form_group {
+    gap: 2.5vw !important
+}
+.submit_button{
+    display: flex;
+    justify-content: end;
+}
+.submit_button input{
+    border:0px;
+    background-color: var(--darkGreen);
+    color:var(--white)
+}
+.err{
+    padding: 1vh 0px 0px 1vw;
+    color:red;
+    height: 0px;
+}
