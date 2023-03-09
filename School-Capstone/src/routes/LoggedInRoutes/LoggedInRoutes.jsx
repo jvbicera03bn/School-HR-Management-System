@@ -1,7 +1,7 @@
+import { useContext, useState, useEffect } from "react"
 import { Navigate, Outlet } from "react-router-dom"
 import { HRNavBar } from '../../components/HRNavBar'
 import { EMPNavBar } from '../../components/EMPNavBar'
-import { useContext, useState, useEffect } from "react"
 import { AuthContext } from "../../context/AuthContext"
 
 export const LoggedInRoutes = () => {
