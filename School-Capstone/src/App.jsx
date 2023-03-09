@@ -28,31 +28,32 @@ const App = () => {
         }
     }, [userInfo]);
     return (
-        <div className="App">
-            <Routes>
-                {userInfo && userType == "EMP"
-                    ? < Route path='/employee' element={<LoggedInRoutes />}>
-                        <Route path='home' element={<EMPHome />} />
-                        <Route path='account' element={<EMPAccount />} />
-                        <Route path='requirements' element={<EMPRequirements />} />
-                        <Route path='payslip' element={<EMPPayslip />} />
-                        <Route path='request' element={<EMPRequest />} />
-                    </Route>
-                    : < Route path='/hr' element={<LoggedInRoutes />}>
-                        <Route path='home' element={<Home />} />
-                        <Route path="employee">
-                            <Route path='addemployee' element={<AddEmployee />} />
-                            <Route path='listofemployee' element={<ListOfEmployee />} />
-                            <Route path='setattendance' element={<SetAttendance />} />
+        <div className="App" id="app">
+                <Routes>
+                    {userInfo && userType == "EMP"
+                        ? < Route path='/employee' element={<LoggedInRoutes />}>
+
+                            <Route path='home' element={<EMPHome />} />
+                            <Route path='account' element={<EMPAccount />} />
+                            <Route path='requirements' element={<EMPRequirements />} />
+                            <Route path='payslip' element={<EMPPayslip />} />
+                            <Route path='request' element={<EMPRequest />} />
                         </Route>
-                        <Route path='requirements' element={<Requirements />} />
-                        <Route path='payroll' element={<Payroll />} />
-                        <Route path='request' element={<Request />} />
-                    </Route>
-                }
-                <Route path="/*" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-            </Routes>
+                        : < Route path='/hr' element={<LoggedInRoutes />}>
+                            <Route path='home' element={<Home />} />
+                            <Route path="employee">
+                                <Route path='addemployee' element={<AddEmployee />} />
+                                <Route path='listofemployee' element={<ListOfEmployee />} />
+                                <Route path='setattendance' element={<SetAttendance />} />
+                            </Route>
+                            <Route path='requirements' element={<Requirements />} />
+                            <Route path='payroll' element={<Payroll />} />
+                            <Route path='request' element={<Request />} />
+                        </Route>
+                    }
+                    <Route path="/*" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                </Routes>
         </div >
     )
 }

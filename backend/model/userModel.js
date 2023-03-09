@@ -29,9 +29,32 @@ const userSchema = mongoose.Schema({
     },
     department: {
         type: String,
-        enum: ['College', 'Senior High School', 'Basic Education', 'All of the Above', 'Undefined'],
+        enum: ['college', 'seniorHighSchool', 'basicEducation', 'Undefined'],
         default: 'Undefined',
-    }
+    },
+    sex: {
+        type: String,
+        enum: ['female', 'male', 'other'],
+        required: [true, `Please add a Password`]
+    },
+    birthDate: {
+        type: Date,
+        required: [true, `Please add a Birht Date`]
+    },
+    IDNumber: {
+        type: Number,
+        required: [true, `Please add a ID Number`]
+    },
+    employeeStatus: {
+        type: String,
+        enum: ['regular', 'partTime'],
+        required: [true, `Please add a Employee Status`]
+    },
+    civilStatus: {
+        type: String,
+        enum: ['married', 'divorce', 'seperated', 'widowed','single'],
+        required: [true, `Please add a Civil Status`]
+    },
 }, {
     timestamps: true
 })

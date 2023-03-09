@@ -40,6 +40,11 @@ const registerUser = asyncHandler(async (req, res) => {
             userType: req.body.userType,
             department: req.body.department,
             email: req.body.email,
+            birthDate: req.body.birthDate,
+            IDNumber: req.body.IDNumber,
+            employeeStatus: req.body.employeeStatus,
+            civilStatus: req.body.civilStatus,
+            sex: req.body.sex,
             password: hashedPassword,
         })
         res.status(200).json({
@@ -88,7 +93,7 @@ const getMe = asyncHandler(async (req, res) => {
 */
 const getUsers = asyncHandler(async (req, res) => {
     try {
-        const user = await User.find({}, 'firstName middleName lastName email userType department password')
+        const user = await User.find({}, 'IDNumber firstName middleName lastName email department employeeStatus _id')
         res.status(200).json({ users: user, db: User })
     } catch (error) {
         res.status(500).json(error.message)
