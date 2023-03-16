@@ -377,34 +377,64 @@ a:hover {
 }
 
 /* Employee List Css */
-.listOfEmployee {}
 
 .table_contaner {
     border-radius: 5px;
-    width:85%;
+    width: 85%;
     margin: 2.5% auto;
-    padding:2% 3% ;
+    padding: 2% 3%;
     background-color: var(--darkGreen);
 }
-.table_contaner .title_bar{
+
+.table_contaner .title_bar {
     display: flex;
     padding: 0px 0px 10px 20px;
-    gap:2%;
+    gap: 2%;
 }
-.table_contaner .title_bar h1{
-    color:var(--white);
+
+.table_contaner .title_bar h1 {
+    color: var(--white);
     border-right: 2px solid black;
     padding-right: 3%;
 }
+
 .table_contaner .title_bar input {
-    padding:1%;
-    width:200px;
+    padding: 1%;
+    width: 200px;
     border-radius: 10px;
 }
+
 .employee_table {
     border-radius: 10px;
     margin: 0 auto;
     height: 73vh;
     overflow-y: overlay;
     width: 100%;
+}
+
+.tableAction {
+    display: flex;
+}
+
+.tableAction button {
+    display: inline;
+    padding: 1px;
+    background: none;
+    margin: 0px 5px;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.tableAction button span {
+    vertical-align: middle;
+}
+
+.tableAction .reject:hover {
+    background-color: var(--red);
+    color: var(--white)
+}
+
+.tableAction .approve:hover {
+    background-color: var(--darkGreen);
+    color: var(--white)
 }

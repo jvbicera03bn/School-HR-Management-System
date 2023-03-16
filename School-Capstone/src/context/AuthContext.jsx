@@ -3,9 +3,6 @@ import { createContext, useState, useEffect } from "react";
 import axios from "axios"
 import { useCookies } from 'react-cookie';
 import { Navigate } from 'react-router-dom';
-/* import Cookies from "universal-cookie" */
-
-
 
 export const AuthContext = createContext();
 
