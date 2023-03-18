@@ -6,6 +6,8 @@
     --white: #ffff;
     --yellow: #FFDE59;
     --red: #aa4141;
+    --lightGray: #D9D9D9;
+    --darkGray:#2e2e2e;
     --mainFont: 'Raleway', sans-serif;
     font-size: 100%;
 }
@@ -37,6 +39,7 @@ button {
     border-radius: 5px;
 }
 
+/* Costumizes the Scroll bar */
 ::-webkit-scrollbar {
     border-radius: 10px;
     width: 10px;
@@ -45,4 +48,17 @@ button {
 
 ::-webkit-scrollbar-thumb {
     background-color: var(--yellow);
+}
+
+/* Hide the incremental decremental button */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
