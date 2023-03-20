@@ -3,8 +3,6 @@ import { getUsers, registerUser, updateUser, getUserByEmail, getMe } from "../co
 const router = express.Router()
 import protect from "../middleware/authMiddleware.js"
 
-
-
 /* Public Routes */
 
 router.route("/login")

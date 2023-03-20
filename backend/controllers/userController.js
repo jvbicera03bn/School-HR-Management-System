@@ -82,7 +82,7 @@ const getMe = asyncHandler(async (req, res) => {
             email: email,
         })
     } catch (error) {
-        res.staus(400).json(error)
+        res.status(400).json(error)
     }
 })
 /* ------------Not-Auth---------- */

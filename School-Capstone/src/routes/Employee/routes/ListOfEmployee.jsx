@@ -50,7 +50,7 @@ export const ListOfEmployee = () => {
         setfilterString(e.target.value)
         setFilteredList(filterByValue(employeeList, e.target.value))
     }
-    function onSelect({selectedRows}) {
+    function onSelect({ selectedRows }) {
         console.log(selectedRows)
     }
     useEffect(() => {

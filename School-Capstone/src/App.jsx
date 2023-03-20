@@ -32,7 +32,6 @@ const App = () => {
                 <Routes>
                     {userInfo && userType == "EMP"
                         ? < Route path='/employee' element={<LoggedInRoutes />}>
-
                             <Route path='home' element={<EMPHome />} />
                             <Route path='account' element={<EMPAccount />} />
                             <Route path='requirements' element={<EMPRequirements />} />
