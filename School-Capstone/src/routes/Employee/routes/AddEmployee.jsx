@@ -181,28 +181,28 @@ export const AddEmployee = () => {
                     <div>
                         <select style={errors.civilStatus && errStyle} {...register("civilStatus", { required: "Civil Status is required" })}>
                             <option disable hidden value="">Civil Status*</option>
-                            <option value="Married">Married</option>
-                            <option value="Divorce">Divorce</option>
-                            <option value="Seperated">Seperated</option>
-                            <option value="Widowed">Widowed</option>
-                            <option value="Single">Single</option>
+                            <option value="married">Married</option>
+                            <option value="divorce">Divorce</option>
+                            <option value="seperated">Seperated</option>
+                            <option value="widowed">Widowed</option>
+                            <option value="single">Single</option>
                         </select>
                         <p className='err'>{errors.civilStatus && errors.civilStatus.message}</p>
                     </div>
                     <div>
                         <select style={errors.department && errStyle} {...register("department", { required: "Department is required" })}>
                             <option disable hidden value="">Department*</option>
-                            <option value="Basic Education">Basic Education</option>
-                            <option value="Senior High">Senior High</option>
-                            <option value="College">College</option>
+                            <option value="basicEducation">Basic Education</option>
+                            <option value="seniorHigh">Senior High</option>
+                            <option value="college">College</option>
                         </select>
                         <p className='err'>{errors.department && errors.department.message}</p>
                     </div>
                     <div>
                         <select style={errors.employeeStatus && errStyle} {...register("employeeStatus", { required: "Employee Status is required" })}>
                             <option disable hidden value="">Employee Status*</option>
-                            <option value="Regular">Regular</option>
-                            <option value="Part Time">Part-Time</option>
+                            <option value="regular">Regular</option>
+                            <option value="partTime">Part-Time</option>
                         </select>
                         <p className='err'>{errors.employeeStatus && errors.employeeStatus.message}</p>
                     </div>

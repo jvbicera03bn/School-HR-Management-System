@@ -36,7 +36,7 @@ export const Request = () => {
       name: "Date Uploaded",
       selector: row => row.employeeStatus,
       sortable: true
-    }, 
+    },
     {
       name: "Action",
       cell: (row) => {
@@ -122,6 +122,13 @@ export const Request = () => {
           />
         </div>
       </div>
+    </div>
+  )
+}
+export const AnnouncementCarosel = () => {
+  return (
+    <div>
+      
     </div>
   )
 }

@@ -29,7 +29,7 @@ const userSchema = mongoose.Schema({
     },
     department: {
         type: String,
-        enum: ['college', 'seniorHighSchool', 'basicEducation', 'Undefined'],
+        enum: ['college', 'seniorHigh', 'basicEducation', 'Undefined'],
         default: 'Undefined',
     },
     sex: {
