@@ -29,7 +29,7 @@ export const AuthContextProvider = ({ children }) => {
         })
     }
     function logOut() {
-        removeCookie("jwtToken")
+        removeCookie("jwtToken",{path:"/"})
         setUserInfo(null)
         setIsLoggedIn(false)
         return (
