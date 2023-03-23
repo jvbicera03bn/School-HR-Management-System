@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import moment from 'moment'
 
 const EMPHome = () => {
@@ -17,4 +17,14 @@ const EMPHome = () => {
     )
 }
 
+const EMPHomeAnnouncementCard = (props) => {
+    const dateNow = new Date()
+    const {date, ''} = props
+    return(
+        <div className='AnnouncementCard'>
+            <h5>{moment(dateNow).format('MMMM, D, YYYY')}</h5>
+            <p></p>
+        </div>
+    )
+}
 export default EMPHome
