@@ -72,20 +72,10 @@ export const Home = () => {
         }).catch((error) => {
             console.error(error);
         });
-
     }, [Home, documentsPassedmap]);
     /*  useEffect(() => {
  
      }, [input]); */
-    /*     const mappedDocumentsPassed = documentsPassed.map((document) => {
-            return (
-                <tr>
-                    <td>{document.name}</td>
-                    <td>{document.docType}</td>
-                    <td>{document.date}</td>
-                </tr>
-            )
-        }) */
       const mappedEvents = events.map((event) => {
           return (
               <li><strong>{event.date}</strong> - {event.name}</li>
