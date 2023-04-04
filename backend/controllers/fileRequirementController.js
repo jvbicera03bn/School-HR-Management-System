@@ -15,6 +15,19 @@ const uploadRequirement = asyncHandler(async (req, res) => {
         res.status(400).json(error);
     }
 })
+const getLimitDocument = asyncHandler(async (req, res) => {
+    try {
+        const document = await fileRequirement.find()
+        .populate({
+            path: "employee_id",
+            select: "firstName lastName middleName idNumber"
+        })
+        .limit(4)
+        res.status(200).json(document);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+})
 
 const getAllDocument = asyncHandler(async (req, res) => {
     try {
@@ -27,4 +40,4 @@ const getAllDocument = asyncHandler(async (req, res) => {
         res.status(400).json(error);
     }
 })
-export { uploadRequirement, getAllDocument }
+export { uploadRequirement, getAllDocument, getLimitDocument }

@@ -83,12 +83,12 @@ a {
 }
 
 .banner h2 {
-    font-size: 1.5625rem;
+    font-size: 1.5vw;
     font-weight: 600;
 }
 
 .banner img {
-    width: 3.125rem
+    width: 3vw
 }
 
 .profile_info {
@@ -98,10 +98,12 @@ a {
 }
 
 .profile_info h3 {
+    font-size: 1vw;
     color: var(--yellow)
 }
 
 .profile_info p {
+    font-size: 1vw;
     color: var(--white)
 }
 
@@ -115,11 +117,12 @@ a {
     border-top: .0625rem solid var(--white);
     text-align: center;
     padding: 1.25rem 0rem;
-    color: var(--yellow)
+    color: var(--yellow);
+    font-size: 1.3vw;
 }
 
 .school_name p {
-    font-size: .8125rem;
+    font-size: .82vw;
 }
 
 .first_layer {
@@ -134,7 +137,7 @@ a {
     flex-direction: column;
     list-style-type: none;
     display: flex;
-    gap: 2.1875rem;
+    gap: 2.3vw;
     padding: 5% 17%;
 }
 
@@ -157,6 +160,7 @@ a {
 }
 
 .nav_bar li {
+    font-size: 1.7vw;
     vertical-align: middle;
     color: var(--white);
     cursor: pointer;
@@ -267,8 +271,10 @@ a:hover {
     text-align: justify;
     display: flex;
     height: 28vh;
+    overflow: scroll;
     flex-direction: column;
     gap: .625rem;
+
 }
 
 .announcement_list li::before {
@@ -478,8 +484,9 @@ a:hover {
     display: flex;
     flex-direction: row;
     width: 21.56vw;
-    height:3vh
+    height: 3vh
 }
+
 .Payroll .input span {
     margin-right: 0.2vw;
     font-weight: 600;
@@ -503,24 +510,172 @@ a:hover {
 }
 
 .Payroll input[type="submit"] {
-    padding:1vh 1vw;
+    padding: 1vh 1vw;
     border-radius: 5px;
     font-weight: 500;
     font-size: 20px;
     box-shadow: rgb(50, 50, 93) 0px 2px 5px -1px, rgb(0, 0, 0) 0px 1px 3px -1px;
 }
+
 .Payroll input[type="submit"]:hover {
     transition: 100ms;
     box-shadow: rgba(0, 0, 0, 0.274) 0px 2px 4px 0px inset;
 }
+
 /* Employee Page */
 /* Emp Home */
-.home .announcementBoard{
+.home .announcementBoard {
     text-align: center;
-    border:2px solid var(--darkGreen);
-    margin:2vh auto;
-    width:72.3vw;
+    border: 2px solid var(--darkGreen);
+    margin: 2vh auto;
+    width: 72.3vw;
     height: 55vh;
     border-radius: 10px;
     padding: 2vh 1vw
+}
+
+.announcementCards {
+    margin: 3vh 2vw;
+    display: flex;
+    gap: 2vw;
+    justify-content: center;
+}
+
+.AnnouncementCard {
+    padding: 2vh 2vw;
+    border: 2px solid var(--darkGreen);
+    border-radius: 10px;
+    height: 35vh;
+    width: 15vw;
+}
+
+.AnnouncementCard p {
+    padding: 2vh 1vw;
+    line-break: auto;
+}
+
+/* EMPAccount  */
+.EMPAccount {
+    width: 77vw;
+    margin: 2vh auto;
+}
+
+.EMPAccount h1.myAccountH {
+    margin-bottom: 2vh;
+    font-size: 2.5vw;
+}
+
+.EMPAccount .section1 {
+    display: flex;
+    gap: 1vw;
+}
+
+.EMPAccount .accountInfo {
+    padding: 2vh 1vw;
+    border-radius: 10px;
+    width: 38vw;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--darkGreen);
+}
+
+.EMPAccount .accountInfo .header h1 {
+    font-size: 2.6vw;
+}
+
+.EMPAccount .accountInfo .allInfo {
+    padding: 5vh 0vw;
+    display: flex;
+}
+
+.EMPAccount .accountInfo .allInfo .category {
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+    margin-right: 3vw;
+}
+
+.EMPAccount .accountInfo .allInfo .category h2 {
+    font-size: 1.4vw;
+}
+
+.EMPAccount .accountInfo .allInfo .infos {
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+}
+
+.EMPAccount .accountInfo .allInfo .infos p {
+    font-size: 1.4vw;
+}
+
+.EMPAccount .accountInfo .allInfo .infos input {
+    border: 1px solid var(--darkGreen);
+    font-size: 1.3vw;
+}
+
+
+.EMPAccount .editButton {
+    background-color: var(--darkGreen);
+    padding: 2.2vh 3.2vw;
+    width: 11vw;
+    color: var(--white);
+    font-size: 1.4vw;
+    font-weight: 600;
+    justify-self: end
+}
+
+.EMPAccount .scheduleInfo {
+    padding: 2vh 1vw;
+    border-radius: 10px;
+    width: 38vw;
+    border: 2px solid var(--darkGreen);
+}
+
+.EMPAccount .scheduleInfo .table {
+    border-collapse: collapse;
+    border: 2px solid var(--darkGreen);
+}
+
+.EMPAccount .scheduleInfo .table td,
+.EMPAccount .scheduleInfo .table th {
+    border: 2px solid var(--darkGreen);
+    padding: 2vh 1vw;
+    font-size: 3.5vh;
+}
+
+.EMPAccount .scheduleInfo .table td {
+    padding: 2vh 2.8vw;
+}
+
+.EMPAccount .scheduleInfo h1 {
+    padding: 1vh 1vw;
+    font-size: 2.3vw;
+    margin-bottom: 1.6vh;
+    border-bottom: 2px solid var(--darkGray);
+}
+
+.EMPAccount .scheduleInfo .table .day {
+    font-weight: 600;
+}
+
+/* Employee requirements */
+.EMPRequirements {
+    margin:2vh 1.5vw;
+    display: flex;
+    gap: 2vw;
+}
+
+.EMPRequirements .requirementsForm h1 {
+    font-size: 1.5vw;
+}
+
+.EMPRequirements .requirementsForm {
+    border: 2px solid var(--darkGreen);
+    padding: 2vh;
+}
+
+.EMPRequirements .requirementTable {
+    border: 2px solid var(--darkGreen);
+    padding: 2vh;
 }

@@ -2,7 +2,9 @@ import React from 'react'
 
 const EMPRequest = () => {
   return (
-    <div>EMPRequest</div>
+    <div className='EMPRequest'>
+      EMPRequest
+    </div>
   )
 }
 

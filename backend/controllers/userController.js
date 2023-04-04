@@ -71,9 +71,11 @@ const registerUser = asyncHandler(async (req, res) => {
     @access Private 
 */
 const getMe = asyncHandler(async (req, res) => {
-    const { _id, firstName, lastName, middleName, userType, email, sex, department, birthDate, IDNumber, civilStatus } = await User.findById(req.user._id)
+    /* const { _id, firstName, lastName, middleName, userType, email, sex, department, birthDate, IDNumber, civilStatus } = await User.findById(req.user._id) */
+    const info = await User.findById(req.user._id)
+
     try {
-        res.status(200).json({
+       /*  res.status(200).json({
             _id: _id,
             firstName: firstName,
             lastName: lastName,
@@ -85,7 +87,8 @@ const getMe = asyncHandler(async (req, res) => {
             birthDate: birthDate,
             IDNumber: IDNumber,
             civilStatus: civilStatus
-        })
+        }) */
+        res.status(200).json(info)
     } catch (error) {
         res.status(400).json(error)
     }

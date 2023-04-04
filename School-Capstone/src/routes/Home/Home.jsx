@@ -1,56 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
+import axios from "axios"
+import { useCookies } from 'react-cookie';
+import swal from "sweetalert"
+
 
 export const Home = () => {
-    const documentsPassed = [
-        {
-            name: "Jack Vincent Bicera",
-            docType: "Form137",
-            date: "3/3/2023"
-        },
-        {
-            name: "Aia Galang",
-            docType: "Diploma",
-            date: "3/3/2023"
-        },
-        {
-            name: "Shelley Mae Carreon",
-            docType: "TOR",
-            date: "3/3/2023"
-        },
-        {
-            name: "Chesca Cutie",
-            docType: "ID",
-            date: "3/3/2023"
-        },
-    ]
-    const announcementList = [
-        {
-            content: "This is an Announcement 1",
-            date: "3-3-2023"
-        },
-        {
-            content: "Walang Pasok",
-            date: "3-3-2023"
-        },
-        {
-            content: "Test long announcement lorem ipsum",
-            date: "3-3-2023"
-        },
-        {
-            content: "Test long announcement lorem ipsum",
-            date: "3-3-2023"
-        },
-        {
-            content: "Test long announcement lorem ipsum",
-            date: "3-3-2023"
-        },
-        {
-            content: "Test long announcement lorem ipsum",
-            date: "3-3-2023"
-        },
-        
-    ]
+    const [cookies, setCookie, removeCookie] = useCookies(['jwtToken'])
+    const [documentsPassedmap, setDocumentsPassedmap] = useState()
+    const [announcementListmap, setAnnouncementListmap] = useState()
+    const [eventsMap, setEventsMap] = useState()
     const events = [
         {
             name: "Sikhayan",
@@ -70,26 +30,86 @@ export const Home = () => {
         },
 
     ]
-    const mappedAnnouncementList = announcementList.map((announcemnt) => {
-        return (
-            <li><strong>{announcemnt.date}</strong> - {announcemnt.content}</li>
-        )
-    })
-    const mappedDocumentsPassed = documentsPassed.map((document) => {
-        return (
-            <tr>
-                <td>{document.name}</td>
-                <td>{document.docType}</td>
-                <td>{document.date}</td>
-            </tr>
-        )
-    })
-    const mappedEvents = events.map((event)=>{
-        return (
-            <li><strong>{event.date}</strong> - {event.name}</li>
-        )
-    })
+    useEffect(() => {
+        axios.request({
+            method: 'get',
+            url: `http://localhost:5000/api/announcement/getAllAnnouncemnt`,
+            headers: {
+                'Authorization': `Bearer ${cookies.jwtToken}`
+            }
+        }).then((response) => {
+            setAnnouncementListmap(
+                response.data.map((announcemnt) => {
+                    return (
+                        <li><strong>{moment(announcemnt.createdAt).format("MMMM D YYYY")}</strong> - {announcemnt.content}</li>
+                    )
+                })
+            )
+        }).catch((error) => {
+            console.error(error);
+        });
+
+    }, [Home, announcementListmap]);
+    useEffect(() => {
+        axios.request({
+            method: 'get',
+            url: `http://localhost:5000/api/requirements/getLimitDocument`,
+            headers: {
+                'Authorization': `Bearer ${cookies.jwtToken}`
+            }
+        }).then((response) => {
+            setDocumentsPassedmap(
+                response.data.map((docu) => {
+                    return (
+                        <tr>
+                            <td>{`${docu.employee_id.firstName} ${docu.employee_id.lastName} `}</td>
+                            <td>{docu.documentType}</td>
+                            <td>{moment(docu.createdAt).format("MMMM D YYYY")}</td>
+                        </tr>
+                    )
+                })
+            )
+        }).catch((error) => {
+            console.error(error);
+        });
+
+    }, [Home, documentsPassedmap]);
+    /*  useEffect(() => {
+ 
+     }, [input]); */
+    /*     const mappedDocumentsPassed = documentsPassed.map((document) => {
+            return (
+                <tr>
+                    <td>{document.name}</td>
+                    <td>{document.docType}</td>
+                    <td>{document.date}</td>
+                </tr>
+            )
+        }) */
+      const mappedEvents = events.map((event) => {
+          return (
+              <li><strong>{event.date}</strong> - {event.name}</li>
+          )
+      })
     const [announcementBtnHanlder, setAnnouncementBtnHanlder] = useState(true)
+    const [announcementVal, setAnnouncementVal] = useState()
+    function postAnnouncement() {
+        axios.request({
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:5000/api/announcement/postAnnouncement',
+            headers: {
+                'Authorization': `Bearer ${cookies.jwtToken}`,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: { content: announcementVal }
+        }).then(() => {
+            setAnnouncementBtnHanlder(!announcementBtnHanlder)
+            swal("Annnouncement Posted")
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
     return (
         <div className="home">
             <div className='welcome_banner'>
@@ -105,7 +125,7 @@ export const Home = () => {
                             <th>Document Type</th>
                             <th>Date</th>
                         </tr>
-                        {mappedDocumentsPassed}
+                        {documentsPassedmap}
                     </table>
                     <Link to="/hr/requirements"><button>View More</button></Link>
                 </div>
@@ -114,16 +134,28 @@ export const Home = () => {
                         {announcementBtnHanlder ? "Recent Announcement" : "Announce"}
                     </h3>
                     {announcementBtnHanlder ?
-                        <ul>{mappedAnnouncementList}</ul>
+                        <ul>{announcementListmap && announcementListmap}</ul>
                         :
-                        <textarea></textarea>}
-                    <button
-                        onClick={() => { setAnnouncementBtnHanlder(!announcementBtnHanlder) }}>
-                        {announcementBtnHanlder ?
-                            "Announcement"
-                            :
-                            "Go Back To Announcement Board"}
-                    </button>
+                        <textarea
+                            value={announcementVal}
+                            onChange={(e) => { setAnnouncementVal(e.target.value) }}
+                        >
+                        </textarea>}
+                    <div className='buttons'>
+                        <button
+                            onClick={() => { setAnnouncementBtnHanlder(!announcementBtnHanlder) }}>
+                            {announcementBtnHanlder ?
+                                "Announcement"
+                                :
+                                "Go Back To Announcement Board"}
+                        </button>
+                        {!announcementBtnHanlder &&
+                            <button
+                                onClick={postAnnouncement}>
+                                Post Announcement
+                            </button>}
+                    </div>
+
                 </div>
             </div>
             <div className='last_section'>

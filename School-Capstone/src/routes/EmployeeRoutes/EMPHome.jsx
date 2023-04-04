@@ -12,18 +12,23 @@ const EMPHome = () => {
             <div className='announcementBoard'>
                 <h3>Announcement</h3>
                 <p>{moment(dateNow).format('MMMM, D, YYYY')}</p>
+                <div className='announcementCards'>
+                    <EMPHomeAnnouncementCard date={dateNow} content={"CONTENT"} />
+                    <EMPHomeAnnouncementCard date={dateNow} content={"CONTENT"} />
+                    <EMPHomeAnnouncementCard date={dateNow} content={"CONTENT"} />
+                </div>
             </div>
         </div>
     )
 }
 
 const EMPHomeAnnouncementCard = (props) => {
-    const dateNow = new Date()
-    const { date } = props
+    const { date, content } = props
+    const dateNow = moment(date).format('MMMM, D, YYYY')
     return (
         <div className='AnnouncementCard'>
-            <h5>{moment(dateNow).format('MMMM, D, YYYY')}</h5>
-            <p></p>
+            <h3>{dateNow}</h3>
+            <p>{content}</p>
         </div>
     )
 }
