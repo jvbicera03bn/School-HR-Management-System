@@ -548,8 +548,14 @@ a:hover {
     height: 35vh;
     width: 15vw;
 }
+.announcementCards .AnnouncementCard h3{
+    font-size: 2vw;
+}
 
 .AnnouncementCard p {
+    color:var(--darkGray);
+    font-size: 1.2vw;
+    font-weight: 500;
     padding: 2vh 1vw;
     line-break: auto;
 }

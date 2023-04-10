@@ -8,7 +8,7 @@ import protect from "../middleware/authMiddleware.js"
 router.route("/login")
     .post(getUserByEmail)
 router.route("/register")
-    .post(registerUser)
+    .post(protect, registerUser)
 /* Private Routes */
 router.route('/users')
     .get(protect, getUsers)

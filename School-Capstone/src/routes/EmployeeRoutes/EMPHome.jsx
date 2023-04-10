@@ -1,7 +1,36 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useCookies } from 'react-cookie';
+import axios from 'axios'
 import moment from 'moment'
 
 const EMPHome = () => {
+    const [cookies, setCookie, removeCookie] = useCookies(['jwtToken'])
+    const [mappedAnnouncement, setMappedAnnouncement] = useState()
+    useEffect(() => {
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:5000/api/announcement/getAnnouncement',
+            headers: {
+                'Authorization': `Bearer ${cookies.jwtToken}`
+            }
+        };
+
+        axios.request(config)
+            .then((response) => {
+                setMappedAnnouncement(
+                    response.data.map((announcement) => {
+                        return (
+                            <EMPHomeAnnouncementCard date={announcement.createdAt} content={announcement.content} />
+                        )
+                    })
+                )
+                console.log(JSON.stringify(response.data));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [EMPHome, mappedAnnouncement]);
     const dateNow = new Date()
     return (
         <div className='home'>
@@ -11,11 +40,8 @@ const EMPHome = () => {
             </div>
             <div className='announcementBoard'>
                 <h3>Announcement</h3>
-                <p>{moment(dateNow).format('MMMM, D, YYYY')}</p>
                 <div className='announcementCards'>
-                    <EMPHomeAnnouncementCard date={dateNow} content={"CONTENT"} />
-                    <EMPHomeAnnouncementCard date={dateNow} content={"CONTENT"} />
-                    <EMPHomeAnnouncementCard date={dateNow} content={"CONTENT"} />
+                    {mappedAnnouncement}
                 </div>
             </div>
         </div>
