@@ -11,7 +11,6 @@ const EMPAccount = () => {
     }
     function onEditInfo() {
         setIsInfoEdit(!isInfoEdit)
-        /*  */
     }
     return (
         <div className='EMPAccount'>

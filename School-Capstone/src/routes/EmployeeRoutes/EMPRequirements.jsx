@@ -62,7 +62,7 @@ const EMPRequirements = () => {
                     <input type="submit" value="Submit Leave" />
                 </form>
             </div>
-            <div className='requirementTable'>
+            <div className='requestTable'>
 
             </div>
         </div>

@@ -548,12 +548,13 @@ a:hover {
     height: 35vh;
     width: 15vw;
 }
-.announcementCards .AnnouncementCard h3{
+
+.announcementCards .AnnouncementCard h3 {
     font-size: 2vw;
 }
 
 .AnnouncementCard p {
-    color:var(--darkGray);
+    color: var(--darkGray);
     font-size: 1.2vw;
     font-weight: 500;
     padding: 2vh 1vw;
@@ -666,22 +667,69 @@ a:hover {
 }
 
 /* Employee requirements */
-.EMPRequirements {
-    margin:2vh 1.5vw;
+.EMPRequest {
+    margin: 2vh 1.5vw;
     display: flex;
     gap: 2vw;
 }
 
-.EMPRequirements .requirementsForm h1 {
+.EMPRequest .requestForm h1 {
     font-size: 1.5vw;
 }
 
-.EMPRequirements .requirementsForm {
+.EMPRequest .requestForm {
     border: 2px solid var(--darkGreen);
     padding: 2vh;
+    border-radius: 10px;
 }
 
-.EMPRequirements .requirementTable {
+.EMPRequest .requestTable {
+    border-radius: 10px;
+    width:50vw;
     border: 2px solid var(--darkGreen);
-    padding: 2vh;
+    padding: 1vh;
+}
+
+.EMPRequest .requestForm form {
+    margin:3vh 0.5vw;
+    gap: 2vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.EMPRequest .inputGrp {
+    font-size: 1.2vw;
+    display: flex;
+    flex-direction: column;
+    gap:1vh
+}
+.EMPRequest .inputGrp label{
+    margin-bottom: 1vh;
+    font-size: 1.8vw;
+    font-weight: 600;
+}
+.EMPRequest .requestForm input,
+.EMPRequest .requestForm select,
+.EMPRequest .requestForm textarea {
+    font-size: 1vw;
+    border: 2px solid var(--darkGreen);
+    border-radius: 10px;
+    padding: 1vw
+}
+.EMPRequest .requestForm .submit_btn{
+    background-color: var(--darkGreen);
+    color: white;
+    font-weight: 400;
+}
+.EMPRequest .table_contaner {
+    border-radius: 5px;
+    width: 85%;
+    margin: 2vh auto;
+    padding: 2% 3%;
+    background-color: var(--darkGreen);
+}
+.textarea{
+    resize:none;
+    width:20vw;
+    height: 10vh;
 }

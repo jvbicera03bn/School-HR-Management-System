@@ -90,7 +90,6 @@ export const ListOfEmployee = () => {
                         data={filteredList ? filteredList : employeeList}
                         fixedHeaderScrollHeight="100%"
                         fixedHeader='true'
-                        selectableRows
                         onSelectedRowsChange={onSelect}
                     />
                 </div>

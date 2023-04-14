@@ -125,10 +125,3 @@ export const Request = () => {
     </div>
   )
 }
-export const AnnouncementCarosel = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}

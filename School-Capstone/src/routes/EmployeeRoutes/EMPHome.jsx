@@ -25,13 +25,11 @@ const EMPHome = () => {
                         )
                     })
                 )
-                console.log(JSON.stringify(response.data));
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
             });
     }, [EMPHome, mappedAnnouncement]);
-    const dateNow = new Date()
     return (
         <div className='home'>
             <div className='welcome_banner'>
