@@ -8,7 +8,7 @@ router
     .get("/getRequest", protect, getRequest)
     .post("/getUserRequest", protect, getUserRequest)
     .put("/rejectRequest", protect, rejectRequest)
-    .put("/AcceptRequest", protect, approveRequest)
+    .put("/acceptRequest", protect, approveRequest)
 
 export default router
 

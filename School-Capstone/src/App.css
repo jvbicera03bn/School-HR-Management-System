@@ -759,5 +759,25 @@ a:hover {
 .DocLink:hover {
     color: rgb(15, 15, 63);
     cursor: pointer;
-    
+}
+
+.status_reject {
+    padding: 0.5vw;
+    background: var(--red);
+    border-radius: 5px;
+    color: var(--white)
+}
+
+.status_approve {
+    padding: 0.5vw;
+    background: var(--darkGreen);
+    border-radius: 5px;
+    color: var(--white)
+}
+
+.status_review {
+    padding: 0.5vw;
+    background: var(--darkGray);
+    border-radius: 5px;
+    color: var(--white)
 }

@@ -24,9 +24,12 @@ export const Login = () => {
         logIn(credential.email, credential.password)
     }
     useEffect(() => {
-        if(userInfo){
+        if (userInfo) {
             setuserType(userInfo.userType)
+        } else {
+
         }
+        false ? console.log("true") : console.log("false")
     }, [userInfo, isLoggedIn]);
     return (
         isLoggedIn

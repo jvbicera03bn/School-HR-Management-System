@@ -11,6 +11,8 @@ export const Home = () => {
     const [documentsPassedmap, setDocumentsPassedmap] = useState()
     const [announcementListmap, setAnnouncementListmap] = useState()
     const [eventsMap, setEventsMap] = useState()
+    const [announcementBtnHanlder, setAnnouncementBtnHanlder] = useState(true)
+    const [announcementVal, setAnnouncementVal] = useState()
     const events = [
         {
             name: "Sikhayan",
@@ -39,16 +41,15 @@ export const Home = () => {
             }
         }).then((response) => {
             setAnnouncementListmap(
-                response.data.map((announcemnt) => {
+                response.data.map((announcemnt, index) => {
                     return (
-                        <li><strong>{moment(announcemnt.createdAt).format("MMMM D YYYY")}</strong> - {announcemnt.content}</li>
+                        <li key={index}><strong key={index}>{moment(announcemnt.createdAt).format("MMMM D YYYY")}</strong> - {announcemnt.content}</li>
                     )
                 })
             )
         }).catch((error) => {
             console.error(error);
         });
-
     }, [Home, announcementListmap]);
     useEffect(() => {
         axios.request({
@@ -59,9 +60,9 @@ export const Home = () => {
             }
         }).then((response) => {
             setDocumentsPassedmap(
-                response.data.map((docu) => {
+                response.data.map((docu, index) => {
                     return (
-                        <tr>
+                        <tr key={index}>
                             <td>{`${docu.employee_id.firstName} ${docu.employee_id.lastName} `}</td>
                             <td>{docu.documentType}</td>
                             <td>{moment(docu.createdAt).format("MMMM D YYYY")}</td>
@@ -73,16 +74,11 @@ export const Home = () => {
             console.error(error);
         });
     }, [Home, documentsPassedmap]);
-    /*  useEffect(() => {
- 
-     }, [input]); */
-      const mappedEvents = events.map((event) => {
-          return (
-              <li><strong>{event.date}</strong> - {event.name}</li>
-          )
-      })
-    const [announcementBtnHanlder, setAnnouncementBtnHanlder] = useState(true)
-    const [announcementVal, setAnnouncementVal] = useState()
+    const mappedEvents = events.map((event,index) => {
+        return (
+            <li key={index}><strong>{event.date}</strong> - {event.name}</li>
+        )
+    })
     function postAnnouncement() {
         axios.request({
             method: 'post',
@@ -95,7 +91,11 @@ export const Home = () => {
             data: { content: announcementVal }
         }).then(() => {
             setAnnouncementBtnHanlder(!announcementBtnHanlder)
-            swal("Annnouncement Posted")
+            swal({
+                icon: 'success',
+                title: 'Announcement',
+                text: 'Succesfully Posted!',
+            })
         }).catch((error) => {
             console.log(error);
         });
@@ -110,12 +110,16 @@ export const Home = () => {
                 <div className='requirement_list'>
                     <h3>Recently Passed Requirements</h3>
                     <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Document Type</th>
-                            <th>Date</th>
-                        </tr>
-                        {documentsPassedmap}
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Document Type</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {documentsPassedmap}
+                        </tbody>
                     </table>
                     <Link to="/hr/requirements"><button>View More</button></Link>
                 </div>

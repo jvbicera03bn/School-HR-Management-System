@@ -45,7 +45,7 @@ const getUserRequest = asyncHandler(async (req, res) => {
 
 const approveRequest = asyncHandler(async (req, res) => {
     try {
-        const updatedReq = await request.findByIdAndUpdate(req.params.id, {
+        const updatedReq = await request.findByIdAndUpdate(req.body.document_id, {
             status: "Approved"
         }, {
             new: true,
@@ -58,7 +58,7 @@ const approveRequest = asyncHandler(async (req, res) => {
 
 const rejectRequest = asyncHandler(async (req, res) => {
     try {
-        const updatedReq = await request.findByIdAndUpdate(req.params.id, {
+        const updatedReq = await request.findByIdAndUpdate(req.body.document_id, {
             status: "Rejected"
         }, {
             new: true,

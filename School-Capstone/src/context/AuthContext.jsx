@@ -12,9 +12,7 @@ export const AuthContextProvider = ({ children }) => {
     /* const jwtCookie = new Cookies() */
     const [userInfo, setUserInfo] = useState()
     const [isLoggedIn, setIsLoggedIn] = useState(cookies.jwtToken ? true : false)
-
     function logIn(email, password) {
-        console.log("wow")
         axios.post(`${baseUrl}/user/login`, {
             email: email,
             password: password

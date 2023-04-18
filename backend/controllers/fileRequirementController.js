@@ -53,4 +53,29 @@ const getUserDocument = asyncHandler(async (req, res) => {
         res.status(400).json(error);
     }
 })
-export { uploadRequirement, getAllDocument, getLimitDocument, getUserDocument }
+const approveDocu = asyncHandler(async (req, res) => {
+    try {
+        const updatedReq = await fileRequirement.findByIdAndUpdate(req.body.document_id, {
+            status: "Approved"
+        }, {
+            new: true,
+        })
+        res.status(200).json(updatedReq)
+    } catch (error) {
+        res.status(400).json(error.message)
+    }
+})
+
+const rejectDocu = asyncHandler(async (req, res) => {
+    try {
+        const updatedReq = await fileRequirement.findByIdAndUpdate(req.body.document_id, {
+            status: "Rejected"
+        }, {
+            new: true,
+        })
+        res.status(200).json(updatedReq)
+    } catch (error) {
+        res.status(400).json(error.message)
+    }
+})
+export { uploadRequirement, getAllDocument, getLimitDocument, getUserDocument, approveDocu, rejectDocu }

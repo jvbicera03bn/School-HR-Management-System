@@ -2,6 +2,7 @@ import { useState, useContext } from 'react'
 import { useForm } from "react-hook-form";
 import { AuthContext } from '../../../context/AuthContext'
 import axios from "axios"
+import swal from "sweetalert"
 
 const errStyle = {
     borderColor: "red",
@@ -9,62 +10,80 @@ const errStyle = {
 
 export const AddEmployee = () => {
     /* Form Functions */
-    const { baseUrl } = useContext(AuthContext)
+    const { baseUrl, cookies } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm()
     /* Submiit Request not working must fix tomo */
-  
+
     function onSubmit(data) {
-        axios.post(`${baseUrl}/user/register`,{
-            firstName: data.firstName,
-            middleName: data.middleName,
-            lastName: data.lastName,
-            userType: data.userType,
-            department: data.department,
-            email: data.email,
-            birthDate: data.birthDate,
-            IDNumber: data.IDNumber,
-            employeeStatus: data.employeeStatus,
-            civilStatus: data.civilStatus,
-            sex: data.sex,
-            password: `${data.firstName}${data.middleName}${data.lastName}`,
-        } 
+        axios.request(
+            {   
+                method: 'post',
+                url: `${baseUrl}/user/register`,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    "Authorization": `Bearer ${cookies.jwtToken}`
+                },
+                data: {
+                    firstName: data.firstName,
+                    middleName: data.middleName,
+                    lastName: data.lastName,
+                    userType: data.userType,
+                    department: data.department,
+                    email: data.email,
+                    birthDate: data.birthDate,
+                    IDNumber: data.IDNumber,
+                    employeeStatus: data.employeeStatus,
+                    civilStatus: data.civilStatus,
+                    sex: data.sex,
+                    password: `${data.firstName}${data.middleName}${data.lastName}`,
+                }
+            }
         ).then((response) => {
             console.log(response)
-            setModal(true)
-        }).catch((err)=>{
+            swal({
+                icon: 'success',
+                title: 'Employee',
+                text: 'Succesfully Registered!',
+            })
+        }).catch((err) => {
             console.log(err)
+            swal({
+                icon: 'error',
+                title: 'Employee',
+                text: 'Register Failed!',
+            })
         })
     }
     /* console.log(errors.lastName) */
     /* Modal Functions */
-    const [modal, setModal] = useState(false);
+    /*     const [modal, setModal] = useState(false); */
 
-    const modalStyle = {
-        "width": "100vw",
-        "height": "100vh",
-        'backgroundColor': "rgba(0, 0, 0, 0.413)",
-        'position': "absolute",
-        "top": "0px",
-        "left": "0px",
-        'display': modal ? "block" : "none",
-    }
-    const modalContentStyle = {
-        'backgroundColor': "rgb(51, 153, 102)",
-        'color': 'white',
-        "width": '40%',
-        "borderRadius": "10px",
-        "padding": '5%',
-        "textAlign": "center",
-        "margin": "15% auto"
-    }
+    /*     const modalStyle = {
+            "width": "100vw",
+            "height": "100vh",
+            'backgroundColor': "rgba(0, 0, 0, 0.413)",
+            'position': "absolute",
+            "top": "0px",
+            "left": "0px",
+            'display': modal ? "block" : "none",
+        } */
+    /*     const modalContentStyle = {
+            'backgroundColor': "rgb(51, 153, 102)",
+            'color': 'white',
+            "width": '40%',
+            "borderRadius": "10px",
+            "padding": '5%',
+            "textAlign": "center",
+            "margin": "15% auto"
+        } */
     return (
         <div className='add_employee'>
-            <div style={modalStyle} className='modal' onClick={() => { setModal(false) }}>
+            {/*             <div style={modalStyle} className='modal' onClick={() => { setModal(false) }}>
                 <div style={modalContentStyle} className='modal_content'>
                     <h1>Succesfully Added an Employee</h1>
                     <button>Close</button>
                 </div>
-            </div>
+            </div> */}
             <h1>Add New Employee</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='input_group'>

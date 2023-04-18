@@ -3,18 +3,81 @@ import { AuthContext } from "../../context/AuthContext"
 import axios from 'axios'
 import DataTable from 'react-data-table-component'
 import moment from 'moment'
+import swal from "sweetalert"
 
 export const Requirements = () => {
 
     const { cookies, baseUrl } = useContext(AuthContext);
     const uppercaseWords = str => str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
+    const [updateTable, setupdateTable] = useState(false);
     const [documentList, setDocumentList] = useState()
+    function onReject(id) {
+        axios.request({
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: `${baseUrl}/requirements/approveDocument`,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                "Authorization": `Bearer ${cookies.jwtToken}`
+            },
+            data: {
+                'document_id': id
+            }
+        })
+            .then((response) => {
+                console.log(response)
+                swal({
+                    icon: 'success',
+                    title: 'Succes',
+                    text: 'Document Rejected!',
+                })
+                setupdateTable(!updateTable)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+    function onApprove(id) {
+        axios.request({
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: `${baseUrl}/requirements/rejectDocument`,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                "Authorization": `Bearer ${cookies.jwtToken}`
+            },
+            data: {
+                'document_id': id
+            }
+        })
+            .then((response) => {
+                console.log(response)
+                swal({
+                    icon: 'success',
+                    title: 'Succes',
+                    text: 'Document Approved!',
+                })
+                setupdateTable(!updateTable)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+    function status(status) {
+        if (status == "Approved") {
+            return "status_approve"
+        } else if (status == "Rejected") {
+            return "status_reject"
+        } else {
+            return "status_review"
+        }
+    }
     const columns = [
         {
             name: "Full Name",
             selector: row => uppercaseWords(row.fullName),
             sortable: true,
-            center:true,
+            center: true,
         },
         {
             name: "Document Type",
@@ -32,7 +95,7 @@ export const Requirements = () => {
         },
         {
             name: "Status",
-            selector: row => uppercaseWords(row.status),
+            selector: row => <strong className={status(row.status)}>{uppercaseWords(row.status)}</strong>,
             sortable: true,
             center: true,
         },
@@ -59,7 +122,7 @@ export const Requirements = () => {
                                 close
                             </span>
                         </button>
-                      {/*   <button className="reject" onClick={() => { onApprove(document_id) }}>
+                        {/*   <button className="reject" onClick={() => { onApprove(document_id) }}>
                             <span className="material-symbols-outlined">
                                 delete
                             </span>
@@ -82,12 +145,6 @@ export const Requirements = () => {
         setfilterString(e.target.value)
         setFilteredList(filterByValue(documentList, e.target.value))
     }
-    function onReject(id) {
-        console.log(id)
-    }
-    function onApprove(id) {
-        console.log(id)
-    }
     useEffect(() => {
         axios.get(`${baseUrl}/requirements/getDocuments`, {
             headers: {
@@ -105,7 +162,7 @@ export const Requirements = () => {
             })
             ))
         })
-    }, [cookies]);
+    }, [cookies, updateTable]);
     return (
         <div className='listOfEmployee'>
             <div className="table_contaner">

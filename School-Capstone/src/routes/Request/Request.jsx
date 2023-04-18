@@ -1,41 +1,110 @@
 import { useState, useEffect, useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import axios from "axios"
-import moment from  "moment"
+import moment from "moment"
 import DataTable from 'react-data-table-component'
 
 export const Request = () => {
     const { cookies, baseUrl } = useContext(AuthContext);
     const [employeeList, setEmployeeList] = useState()
+    const [updateTable, setupdateTable] = useState(false);
+    const uppercaseWords = str => str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
+    function status(status) {
+        if (status == "Approved") {
+            return "status_approve"
+        } else if (status == "Rejected") {
+            return "status_reject"
+        } else {
+            return "status_review"
+        }
+    }
+    function onReject(id) {
+        axios.request({
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: `${baseUrl}/request/rejectRequest`,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                "Authorization": `Bearer ${cookies.jwtToken}`
+            },
+            data: {
+                'document_id': id
+            }
+        })
+            .then((response) => {
+                console.log(response)
+                swal({
+                    icon: 'success',
+                    title: 'Succes',
+                    text: 'Document Rejected!',
+                })
+                setupdateTable(!updateTable)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+    function onApprove(id) {
+        axios.request({
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: `${baseUrl}/request/acceptRequest`,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                "Authorization": `Bearer ${cookies.jwtToken}`
+            },
+            data: {
+                'document_id': id
+            }
+        })
+            .then((response) => {
+                console.log(response)
+                swal({
+                    icon: 'success',
+                    title: 'Succes',
+                    text: 'Document Approved!',
+                })
+                setupdateTable(!updateTable)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
     const columns = [
         {
             name: "Full Name",
-            selector: row => row.fullName,
+            selector: row => uppercaseWords(row.fullName),
             sortable: true,
-            center:true,
+            center: true,
         },
         {
             name: "Request Type",
-            selector: row => row.requestType,
-            center:true,
+            selector: row => uppercaseWords(row.requestType),
+            center: true,
             sortable: true
         },
         {
             name: "Number of Days",
-            selector: row => row.numberOfDays,
-            center:true,
+            selector: row => uppercaseWords(row.numberOfDays),
+            center: true,
             sortable: true
         },
         {
             name: "View Document",
             selector: row => <a className="DocLink" href={`https://${row.viewLink}`}>View Document</a>,
-            center:true,
+            center: true,
             sortable: true
+        },
+        {
+            name: "Status",
+            selector: row => <strong className={status(row.status)}>{uppercaseWords(row.status)}</strong>,
+            sortable: true,
+            center: true,
         },
         {
             name: "Date Uploaded",
             selector: row => moment(row.createdAt).format('MMMM, D, YYYY'),
-            center:true,
+            center: true,
             sortable: true
         },
         {
@@ -44,12 +113,12 @@ export const Request = () => {
                 const { document_id } = row
                 return (
                     <div className='tableAction'>
-                        <button className="approve" onClick={() => { onReject(document_id) }}>
+                        <button className="approve" onClick={() => { onApprove(document_id) }}>
                             <span className="material-symbols-outlined">
                                 done
                             </span>
                         </button>
-                        <button className="reject" onClick={() => { onApprove(document_id) }}>
+                        <button className="reject" onClick={() => { onReject(document_id) }}>
                             <span className="material-symbols-outlined">
                                 close
                             </span>
@@ -73,20 +142,18 @@ export const Request = () => {
         return array.filter(o =>
             Object.keys(o).some(k => o[k].toLowerCase().includes(string.toLowerCase())));
     }
-    console.log(employeeList)
     function handleChange(e) {
         setfilterString(e.target.value)
         setFilteredList(filterByValue(employeeList, e.target.value))
     }
-    function onSelect({ selectedRows }) {
-        console.log(selectedRows)
-    }
+
     useEffect(() => {
         axios.get(`${baseUrl}/request/getRequest`, {
             headers: {
                 "Authorization": `Bearer ${cookies.jwtToken}`
             }
         }).then((response) => {
+            console.log(response.data)
             setEmployeeList(response.data.map((request) => ({
                 "fullName": ` ${request.employee_id.firstName} ${request.employee_id.middleName} ${request.employee_id.lastName}`,
                 "reqMessage": ` ${request.requestMessage}`,
@@ -95,10 +162,11 @@ export const Request = () => {
                 "createdAt": ` ${request.createdAt}`,
                 "viewLink": `${request.requestType}${request.employee_id.lastName}`,
                 "status": `${request.status}`,
+                "document_id": `${request._id}`,
             })
             ))
         })
-    }, [cookies]);
+    }, [cookies, updateTable]);
     return (
         <div className='listOfEmployee'>
             <div className="table_contaner">
@@ -118,8 +186,6 @@ export const Request = () => {
                         data={filteredList ? filteredList : employeeList}
                         fixedHeaderScrollHeight="100%"
                         fixedHeader='true'
-                        
-                        onSelectedRowsChange={onSelect}
                     />
                 </div>
             </div>

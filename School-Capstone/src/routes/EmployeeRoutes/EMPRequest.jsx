@@ -67,6 +67,7 @@ const EMPRequest = () => {
     const errStyle = {
         borderColor: "red",
     }
+
     function handleChange(e) {
         setFilterString(e.target.value)
         setFilterList(filterByValue(reqList, e.target.value))
