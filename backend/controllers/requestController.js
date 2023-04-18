@@ -15,6 +15,18 @@ const uploadRequest = asyncHandler(async (req, res) => {
         res.status(400).json(error);
     }
 })
+const getRequest = asyncHandler(async (req, res) => {
+    try {
+        const requestRes = await request.find({})
+            .populate({
+                path: "employee_id",
+                select: "firstName lastName middleName idNumber"
+            })
+        res.status(200).json(requestRes)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
 
 const getUserRequest = asyncHandler(async (req, res) => {
     try {
@@ -57,4 +69,4 @@ const rejectRequest = asyncHandler(async (req, res) => {
     }
 })
 
-export { getUserRequest, uploadRequest, approveRequest, rejectRequest }
+export { getUserRequest, uploadRequest, approveRequest, rejectRequest, getRequest }

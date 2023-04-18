@@ -757,5 +757,7 @@ a:hover {
 }
 
 .DocLink:hover {
-    color: rgb(15, 15, 63)
+    color: rgb(15, 15, 63);
+    cursor: pointer;
+    
 }

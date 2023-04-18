@@ -7,17 +7,18 @@ import moment from 'moment'
 export const Requirements = () => {
 
     const { cookies, baseUrl } = useContext(AuthContext);
+    const uppercaseWords = str => str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
     const [documentList, setDocumentList] = useState()
     const columns = [
         {
             name: "Full Name",
-            selector: row => row.fullName,
+            selector: row => uppercaseWords(row.fullName),
             sortable: true,
             center:true,
         },
         {
             name: "Document Type",
-            selector: row => row.documentType,
+            selector: row => uppercaseWords(row.documentType),
             sortable: true,
             compact: true,
             width: "70px",
@@ -25,21 +26,19 @@ export const Requirements = () => {
         },
         {
             name: "Document View",
-            cell: (row) => {
-                return (<a style={{ color: "black" }}>{row.documentLink}</a>)
-            },
+            cell: (row) => <a className='DocLink' href={row.documentLink}>View Requirement</a>,
             sortable: true,
             center: true
         },
         {
             name: "Status",
-            selector: row => row.status,
+            selector: row => uppercaseWords(row.status),
             sortable: true,
             center: true,
         },
         {
             name: "Date & Time",
-            selector: row => row.date_time,
+            selector: row => uppercaseWords(row.date_time),
             sortable: true,
             compact: true,
             center: true,

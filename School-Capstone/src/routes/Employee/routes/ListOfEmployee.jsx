@@ -6,36 +6,44 @@ import DataTable from 'react-data-table-component'
 
 export const ListOfEmployee = () => {
     const { cookies, baseUrl } = useContext(AuthContext);
+    const uppercaseWords = str => str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
     const [employeeList, setEmployeeList] = useState()
     const columns = [
         {
             name: "ID Number",
             selector: row => row.idNumber,
+            center: true,
             sortable: true
+        
         },
         {
             name: "First Name",
-            selector: row => row.firstName,
+            selector: row => uppercaseWords(row.firstName),
+            center: true,
             sortable: true
         },
         {
             name: "Middle Name",
-            selector: row => row.middleName,
+            selector: row => uppercaseWords(row.middleName),
+            center: true,
             sortable: true
         },
         {
             name: "Last Name",
-            selector: row => row.lastName,
+            selector: row => uppercaseWords(row.lastName),
+            center: true,
             sortable: true
         },
         {
             name: "Department",
-            selector: row => row.schoolDepartment,
+            selector: row => uppercaseWords(row.schoolDepartment),
+            center: true,
             sortable: true
         },
         {
             name: "Employee Status",
-            selector: row => row.employeeStatus,
+            selector: row => uppercaseWords(row.employeeStatus),
+            center: true,
             sortable: true
         },
     ]
