@@ -667,69 +667,95 @@ a:hover {
 }
 
 /* Employee requirements */
-.EMPRequest {
-    margin: 2vh 1.5vw;
+.EMPRequest,
+.EMPRequirement {
+    margin: 1vw 1.5vw;
     display: flex;
     gap: 2vw;
 }
 
-.EMPRequest .requestForm h1 {
+.EMPRequest .requestForm h1,
+.EMPRequirement .requestForm h1 {
     font-size: 1.5vw;
 }
 
-.EMPRequest .requestForm {
+.EMPRequest .requestForm,
+.EMPRequirement .requestForm {
     border: 2px solid var(--darkGreen);
-    padding: 2vh;
+    padding: 1vw;
     border-radius: 10px;
 }
 
-.EMPRequest .requestTable {
+.EMPRequest .requestTable,
+.EMPRequirement .requestTable {
     border-radius: 10px;
-    width:50vw;
+    width: 50vw;
     border: 2px solid var(--darkGreen);
-    padding: 1vh;
+    padding: 0.5vw;
 }
 
-.EMPRequest .requestForm form {
-    margin:3vh 0.5vw;
+.EMPRequest .requestForm form,
+.EMPRequirement .requestForm form {
+    margin: 1vw 0.5vw;
     gap: 2vw;
     display: flex;
     flex-direction: column;
 }
 
-.EMPRequest .inputGrp {
+.EMPRequest .inputGrp,
+.EMPRequirement .inputGrp {
     font-size: 1.2vw;
     display: flex;
     flex-direction: column;
-    gap:1vh
+    gap: 0.5vw
 }
-.EMPRequest .inputGrp label{
-    margin-bottom: 1vh;
+
+.EMPRequest .inputGrp label,
+.EMPRequirement .inputGrp label {
+    margin-bottom: 0.5vw;
     font-size: 1.8vw;
     font-weight: 600;
 }
+
 .EMPRequest .requestForm input,
 .EMPRequest .requestForm select,
-.EMPRequest .requestForm textarea {
+.EMPRequest .requestForm textarea,
+.EMPRequirement .requestForm input,
+.EMPRequirement .requestForm select,
+.EMPRequirement .requestForm textarea {
     font-size: 1vw;
     border: 2px solid var(--darkGreen);
     border-radius: 10px;
     padding: 1vw
 }
-.EMPRequest .requestForm .submit_btn{
+
+.EMPRequest .requestForm .submit_btn,
+.EMPRequirement .requestForm .submit_btn {
     background-color: var(--darkGreen);
     color: white;
     font-weight: 400;
 }
-.EMPRequest .table_contaner {
+
+.EMPRequest .table_contaner,
+.EMPRequirement .table_contaner {
     border-radius: 5px;
     width: 85%;
-    margin: 2vh auto;
+    margin: 1vw auto;
     padding: 2% 3%;
     background-color: var(--darkGreen);
 }
-.textarea{
-    resize:none;
-    width:20vw;
+
+.textarea {
+    resize: none;
+    width: 20vw;
     height: 10vh;
+}
+
+.DocLink {
+    color: blue;
+    font-weight: 600;
+}
+
+.DocLink:hover {
+    color: rgb(15, 15, 63)
 }

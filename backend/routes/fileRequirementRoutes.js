@@ -4,12 +4,11 @@ import protect from "../middleware/authMiddleware.js"
 const router = express.Router()
 
 
-
 router
     .post("/uploadRequirement", protect, uploadRequirement)
     .get("/getDocuments", protect, getAllDocument)
     .get("/getLimitDocument", protect, getLimitDocument)
-    .get("/getUserDocument", protect, getUserDocument)
+    .post("/getUserDocument", protect, getUserDocument)
 
 
 export default router

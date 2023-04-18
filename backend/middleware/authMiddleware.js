@@ -16,7 +16,6 @@ const protect = asyncHandler(async (req, res, next) => {
             
             next()
         } catch (error) {
-            console.log(error.errors)
             res.status(400).json(error.errors)
             throw new Error('Not Authorized')
         }
