@@ -13,13 +13,18 @@ const EMPRequest = () => {
     const [newReq, setNewReq] = useState(0)
     const [filterString, setFilterString] = useState()
     const [filterList, setFilterList] = useState()
+    const uppercaseWords = str => str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
+    function status(status) {
+        if (status == "Approved") {
+            return "status_approve"
+        } else if (status == "Rejected") {
+            return "status_reject"
+        } else {
+            return "status_review"
+        }
+    }
     const columns = [
-        {
-            name: "Request ID",
-            selector: row => row._id,
-            sortable: true,
-            center: true
-        },
+
         {
             name: "Request Type",
             selector: row => row.requestType,
@@ -34,7 +39,7 @@ const EMPRequest = () => {
         },
         {
             name: "Status",
-            selector: row => row.status,
+            selector: row => <strong className={status(row.status)}>{uppercaseWords(row.status)}</strong>,
             center: true,
             sortable: true
         },
@@ -89,7 +94,11 @@ const EMPRequest = () => {
             }
         })
             .then((response) => {
-                swal("Request Succesfully Submitted")
+                swal({
+                    icon: 'success',
+                    title: 'Request',
+                    text: 'Request Succesfully Submitted!',
+                })
                 reset({
                     requestType: "",
                     numberOfDays: "",
@@ -117,14 +126,14 @@ const EMPRequest = () => {
                                     required: "Type of Request is required"
                                 })}>
                             <option disable hidden value="">Type of Request*</option>
-                            <option value="Maternity">Maternity</option>
-                            <option value="Paternity">Paternity</option>
-                            <option value="Annual">Annual</option>
+                            <option value="Sick">Sick Leave</option>
+                            <option value="Vacation">Vacation Leave</option>
+                         {/*    <option value="Annual">Annual</option>
                             <option value="Sick">Sick</option>
                             <option value="Bereavement">Bereavement</option>
                             <option value="Unpaid">Unpaid</option>
                             <option value="Casual">Casual</option>
-                            <option value="Compensatory">Compensatory</option>
+                            <option value="Compensatory">Compensatory</option> */}
                         </select>
                         <p className='err'>{errors.requestType && errors.requestType.message}</p>
                     </div>

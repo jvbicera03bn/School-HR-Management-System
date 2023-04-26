@@ -1,43 +1,48 @@
 import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
 import { useContext, useEffect, useState } from "react"
-import DataTable from "react-data-table-component"
 import { AuthContext } from "../../context/AuthContext"
+
+import DataTable from "react-data-table-component"
 import moment from "moment"
 import axios from "axios"
 import swal from "sweetalert"
 
+import { storage } from "../../firebase/firebase.js"
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import { v4 } from "uuid"
+
 const EMPRequirements = () => {
+
     const { userInfo, baseUrl, cookies } = useContext(AuthContext)
-    const { register, handleSubmit, reset, formState: { errors } } = useForm()
+    const { register, handleSubmit, reset, getValues, formState: { errors } } = useForm()
     const [reqList, setReqList] = useState()
     const [newReq, setNewReq] = useState(0)
     const [filterString, setFilterString] = useState()
     const [filterList, setFilterList] = useState()
+    const [SSSnumber, setSSSnumberInp] = useState(false)
+    const uppercaseWords = str => str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
+    function status(status) {
+        if (status == "Approved") {
+            return "status_approve"
+        } else if (status == "Rejected") {
+            return "status_reject"
+        } else {
+            return "status_review"
+        }
+    }
     const columns = [
         {
-            name: "Requirement ID",
-            selector: row => row._id,
-            sortable: true,
-            center: true
-        },
-        {
-            name: "Document Name",
-            selector: row => row.documentName,
-            sortable: true,
-            center: true
-        },
-        {
             name: "Document Type",
-            selector: row => row.documentName,
+            selector: row => row.documentType,
             center: true,
             sortable: true
         },
         {
-            name: "Link",
+            name: "View Document",
             selector: (row) => {
                 return (
-                    <a className="DocLink" href={`http://${row.documentLink}`} rel=" noreferrer" target={'_blank'}>Document</a>
+                    <a className="DocLink" href={`${row.documentLink}`} rel=" noreferrer" target={'_blank'}>Document</a>
                 )
             },
             center: true,
@@ -45,7 +50,7 @@ const EMPRequirements = () => {
         },
         {
             name: "Status",
-            selector: row => row.status,
+            selector: row => <strong className={status(row.status)}>{uppercaseWords(row.status)}</strong>,
             center: true,
             sortable: true
         },
@@ -84,37 +89,47 @@ const EMPRequirements = () => {
         setFilterList(filterByValue(reqList, e.target.value))
     }
     function onSubmit(data) {
-        axios.request({
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: `${baseUrl}/request/addRequest`,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': `Bearer ${cookies.jwtToken}`
-            },
-            data: {
-                'employee_id': userInfo._id,
-                'requestMessage': data.reqContent,
-                'requestType': data.requestType,
-                'numberOfDays': data.numberOfDays
-            }
-        })
-            .then((response) => {
-                swal("Request Succesfully Submitted")
-                reset({
-                    requestType: "",
-                    numberOfDays: "",
-                    reqContent: ""
-                })
-                setNewReq(!newReq)
+        const { requirementFile, requirementType } = data
+        const fileRef = ref(storage, `requirements/${userInfo.firstName}${userInfo.lastName}${requirementType + v4()}`)
+        uploadBytes(fileRef, requirementFile[0])
+            .then((res) => {
+                getDownloadURL(res.ref).then((url) => {
+                    axios.request({
+                        method: 'post',
+                        maxBodyLength: Infinity,
+                        url: `${baseUrl}/requirements/uploadRequirement`,
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'Authorization': `Bearer ${cookies.jwtToken}`
+                        },
+                        data: {
+                            'employee_id': userInfo._id,
+                            'documentLink': url,
+                            'documentType': requirementType,
+                        }
+                    })
+                        .then((response) => {
+                            swal({
+                                icon: 'success',
+                                title: 'Requirement',
+                                text: 'Requirement Succesfully Submitted!',
+                            })
+                            reset({
+                                requirementType: "",
+                                requirementFile: "",
+                                SSSnumber: ""
+                            })
+                            setNewReq(!newReq)
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                });
             })
-            .catch((error) => {
-                console.log(error);
-            });
+
+
     }
-    function onSelect({ selectedRows }) {
-        console.log(selectedRows)
-    }
+    console.log(SSSnumber)
     return (
         <div className='EMPRequirement'>
             <div className='requestForm'>
@@ -122,12 +137,16 @@ const EMPRequirements = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="inputGrp">
                         <label>Requirement Type*</label>
-                        <select style={errors.requestType && errStyle}
+                        <select
+                            style={errors.requestType && errStyle}
                             {...register
                                 ("requirementType", {
-                                    required: "Type of Requirement Type is required"
-                                })}>
-                            <option disable hidden value="">Type of Request*</option>
+                                    onChange: (e) => { e.target.value == "SSS" ? setSSSnumberInp(true) : setSSSnumberInp(false) },
+                                    required: "Type of Requirement is required"
+                                })
+                            }
+                        >
+                            <option disable hidden value="">Type of Requirement*</option>
                             <option value="SSS">SSS</option>
                             <option value="PSA">PSA</option>
                             <option value="Certificates">Certificates</option>
@@ -139,19 +158,36 @@ const EMPRequirements = () => {
                             <option value="PRCLicense">PRC License </option>
                             <option value="Passport">Passport </option>
                         </select>
-                        <p className='err'>{errors.requestType && errors.requestType.message}</p>
+                        <p className='err'>{errors.requirementType && errors.requirementType.message}</p>
                     </div>
+                    {SSSnumber && <div className="inputGrp">
+                        <label>SSS Number *</label>
+                        <input style={errors.numberOfDays && errStyle}
+                            {...register('SSSnumber',
+                                {
+                                    required: "SSS Number is Required",
+                                })}
+                            placeholder='Number of Days*'
+                            type="text"
+                        />
+                        <p className='err'>{errors.SSSnumber && errors.SSSnumber.message}</p>
+                    </div>}
                     <div className="inputGrp">
                         <label>Attach Document*</label>
                         <input style={errors.numberOfDays && errStyle}
                             {...register('requirementFile',
                                 {
+                                    onChange: (e) => { console.log(e.target.value) },
                                     required: "File is Required",
+                                    validate: {
+                                        lessThan10MB: (file) => file[0].size <= 320000 || "Max 30kb",
+                                        acceptedFormats: (file) => ["image/jpeg", "image/png", "image/gif", "application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"].includes(file[0].type) || "Only PNG, JPEG, Docx, PDF e GIF "
+                                    }
                                 })}
                             placeholder='Number of Days*'
                             type="file"
                         />
-                        <p className='err'>{errors.numberOfDays && errors.numberOfDays.message}</p>
+                        <p className='err'>{errors.requirementFile && errors.requirementFile.message}</p>
                     </div>
                     <input className='submit_btn' type="submit" value="Submit Requirement" />
                 </form>
@@ -174,7 +210,6 @@ const EMPRequirements = () => {
                             data={filterList ? filterList : reqList}
                             fixedHeaderScrollHeight="100%"
                             fixedHeader='true'
-                            onSelectedRowsChange={onSelect}
                         />
                     </div>
                 </div>

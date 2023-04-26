@@ -5,10 +5,6 @@ const fileRequirementSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'User'
     },
-    documentName: {
-        type: String,
-        required: true
-    },
     documentLink: {
         type: String,
         required: true
