@@ -17,7 +17,7 @@ const getAnnouncemnt = asyncHandler(async (req, res) => {
     try {
         const announcement = await announcemeent.find()
             .sort({ createdAt: -1 })
-            .limit(3)
+            .limit(5)
         res.status(200).json(announcement);
     } catch (error) {
         res.status(400).json(error);

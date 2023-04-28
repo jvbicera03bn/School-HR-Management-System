@@ -15,79 +15,73 @@ export const AddEmployee = () => {
     /* Submiit Request not working must fix tomo */
 
     function onSubmit(data) {
-        axios.request(
-            {   
-                method: 'post',
-                url: `${baseUrl}/user/register`,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    "Authorization": `Bearer ${cookies.jwtToken}`
-                },
-                data: {
-                    firstName: data.firstName,
-                    middleName: data.middleName,
-                    lastName: data.lastName,
-                    userType: data.userType,
-                    department: data.department,
-                    email: data.email,
-                    birthDate: data.birthDate,
-                    IDNumber: data.IDNumber,
-                    employeeStatus: data.employeeStatus,
-                    civilStatus: data.civilStatus,
-                    sex: data.sex,
-                    password: `${data.firstName}${data.middleName}${data.lastName}`,
-                }
+        axios.request({
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `${baseUrl}/user/getNumUser`,
+            headers: {
+                'Authorization': `Bearer ${cookies.jwtToken}`
             }
-        ).then((response) => {
-            console.log(response)
-            swal({
-                icon: 'success',
-                title: 'Employee',
-                text: 'Succesfully Registered!',
-            })
-        }).catch((err) => {
-            console.log(err)
-            swal({
-                icon: 'error',
-                title: 'Employee',
-                text: 'Register Failed!',
-            })
+        }).then((response1) => {
+            const IDNumber = `${data.department.slice(0, 3).toUpperCase()}-${data.dateHired.slice(0, 4)}${/* Month */data.dateHired.slice(5, 7)}${/* Day */data.dateHired.slice(8, 10)}${response1.data}`
+            axios.request(
+                {
+                    method: 'post',
+                    url: `${baseUrl}/user/register`,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        "Authorization": `Bearer ${cookies.jwtToken}`
+                    },
+                    data: {
+                        firstName: data.firstName,
+                        middleName: data.middleName,
+                        lastName: data.lastName,
+                        userType: data.userType,
+                        department: data.department,
+                        email: data.email,
+                        birthDate: data.birthDate,
+                        IDNumber: IDNumber,
+                        employeeStatus: data.employeeStatus,
+                        civilStatus: data.civilStatus,
+                        sex: data.sex,
+                        dateHired: data.dateHired,
+                        address: data.address,
+                        contactNumber: data.contactNumber,
+                        password: `${data.firstName}${data.middleName}${data.lastName}`,
+                    }
+                }).then((response) => {
+                    swal({
+                        icon: 'success',
+                        title: 'Employee',
+                        text: 'Succesfully Registered!',
+                    })
+                }).catch((err) => {
+                    console.error(err)
+                    swal({
+                        icon: 'error',
+                        title: 'Employee',
+                        text: `${err.response.data.emailExist}`,
+                    })
+                })
         })
-    }
-    /* console.log(errors.lastName) */
-    /* Modal Functions */
-    /*     const [modal, setModal] = useState(false); */
+            .catch((error) => {
+                console.log(error)
+                swal({
+                    icon: 'error',
+                    title: 'Register Failed!',
+                    text: 'Please Try Again Later',
+                })
+            });
 
-    /*     const modalStyle = {
-            "width": "100vw",
-            "height": "100vh",
-            'backgroundColor': "rgba(0, 0, 0, 0.413)",
-            'position': "absolute",
-            "top": "0px",
-            "left": "0px",
-            'display': modal ? "block" : "none",
-        } */
-    /*     const modalContentStyle = {
-            'backgroundColor': "rgb(51, 153, 102)",
-            'color': 'white',
-            "width": '40%',
-            "borderRadius": "10px",
-            "padding": '5%',
-            "textAlign": "center",
-            "margin": "15% auto"
-        } */
+    }
+
     return (
         <div className='add_employee'>
-            {/*             <div style={modalStyle} className='modal' onClick={() => { setModal(false) }}>
-                <div style={modalContentStyle} className='modal_content'>
-                    <h1>Succesfully Added an Employee</h1>
-                    <button>Close</button>
-                </div>
-            </div> */}
             <h1>Add New Employee</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='input_group'>
                     <div >
+                        <span className='titleInput'>Last Name</span>
                         <input style={errors.lastName && errStyle}
                             {...register('lastName',
                                 {
@@ -102,10 +96,11 @@ export const AddEmployee = () => {
                         <p className='err'>{errors.lastName && errors.lastName.message}</p>
                     </div>
                     <div>
+                        <span className='titleInput'>First Name</span>
                         <input style={errors.firstName && errStyle}
                             {...register('firstName',
                                 {
-                                    required: "FirstName is Required",
+                                    required: "First Name is Required",
                                     pattern: {
                                         value: /^[a-zA-Z]+$/g,
                                         message: "Only letters are allowed"
@@ -116,6 +111,7 @@ export const AddEmployee = () => {
                         <p className='err'>{errors.firstName && errors.firstName.message}</p>
                     </div>
                     <div>
+                        <span className='titleInput'>Middle Name</span>
                         <input style={errors.middleName && errStyle}
                             {...register('middleName',
                                 {
@@ -132,6 +128,7 @@ export const AddEmployee = () => {
                 </div>
                 <div className='input_group'>
                     <div>
+                        <span className='titleInput'>Birthdate</span>
                         <input style={errors.birthDate && errStyle}
                             {...register('birthDate',
                                 {
@@ -143,6 +140,7 @@ export const AddEmployee = () => {
                         <p className='err'>{errors.birthDate && errors.birthDate.message}</p>
                     </div>
                     <div>
+                        <span className='titleInput'>Email</span>
                         <input className='email_input' style={errors.email && errStyle}
                             {...register('email',
                                 {
@@ -156,9 +154,23 @@ export const AddEmployee = () => {
                         />
                         <p className='err'>{errors.email && errors.email.message}</p>
                     </div>
+                    <div>
+                        <span className='titleInput'>Date Hired</span>
+                        <input style={errors.dateHired && errStyle}
+                            {...register('dateHired',
+                                {
+                                    required: "Date Hired is Required",
+
+                                })}
+                            placeholder='Email*'
+                            type="date"
+                        />
+                        <p className='err'>{errors.dateHired && errors.dateHired.message}</p>
+                    </div>
                 </div>
                 <div className='input_group'>
                     <div>
+                        <span className='titleInput'>Address</span>
                         <input style={errors.address && errStyle}
                             {...register('address',
                                 {
@@ -173,6 +185,7 @@ export const AddEmployee = () => {
                         <p className='err'>{errors.address && errors.address.message}</p>
                     </div>
                     <div>
+                        <span className='titleInput'>Contact Number</span>
                         <input style={errors.contactNumber && errStyle}
                             {...register('contactNumber',
                                 {
@@ -187,6 +200,7 @@ export const AddEmployee = () => {
                         <p className='err'>{errors.contactNumber && errors.contactNumber.message}</p>
                     </div>
                     <div>
+                        <span className='titleInput'>Sex</span>
                         <select style={errors.sex && errStyle} {...register("sex", { required: "Sex is required" })}>
                             <option disable hidden value="">Sex*</option>
                             <option value="female">Female</option>
@@ -198,6 +212,7 @@ export const AddEmployee = () => {
                 </div>
                 <div className="third_form_group input_group">
                     <div>
+                        <span className='titleInput'>Civil Status</span>
                         <select style={errors.civilStatus && errStyle} {...register("civilStatus", { required: "Civil Status is required" })}>
                             <option disable hidden value="">Civil Status*</option>
                             <option value="married">Married</option>
@@ -209,6 +224,7 @@ export const AddEmployee = () => {
                         <p className='err'>{errors.civilStatus && errors.civilStatus.message}</p>
                     </div>
                     <div>
+                        <span className='titleInput'>Department</span>
                         <select style={errors.department && errStyle} {...register("department", { required: "Department is required" })}>
                             <option disable hidden value="">Department*</option>
                             <option value="basicEducation">Basic Education</option>
@@ -218,6 +234,7 @@ export const AddEmployee = () => {
                         <p className='err'>{errors.department && errors.department.message}</p>
                     </div>
                     <div>
+                        <span className='titleInput'>Employee Status</span>
                         <select style={errors.employeeStatus && errStyle} {...register("employeeStatus", { required: "Employee Status is required" })}>
                             <option disable hidden value="">Employee Status*</option>
                             <option value="regular">Regular</option>
@@ -225,8 +242,9 @@ export const AddEmployee = () => {
                         </select>
                         <p className='err'>{errors.employeeStatus && errors.employeeStatus.message}</p>
                     </div>
-                    <div>
-                        <input style={errors.idNumber && errStyle}
+                    {/* <div>
+                        <span className='titleInput'>ID Number</span>
+                        <input style={errors.IDNumber && errStyle}
                             {...register('IDNumber',
                                 {
                                     required: "ID Number is Required",
@@ -237,12 +255,11 @@ export const AddEmployee = () => {
                                 })}
                             placeholder='ID Number*'
                         />
-                        <p className='err'>{errors.idNumber && errors.idNumber.message}</p>
-                    </div>
+                        <p className='err'>{errors.IDNumber && errors.IDNumber.message}</p>
+                    </div> */}
                 </div>
                 <div className='submit_button'>
                     <input type="submit" />
-                    {/* <button onClick={() => { setModal(true) }}>open Modal</button> */}
                 </div>
             </form>
         </div>

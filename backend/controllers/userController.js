@@ -24,6 +24,15 @@ const getUserByEmail = asyncHandler(async (req, res) => {
         res.status(500).json(error.message)
     }
 })
+const getUserByID = asyncHandler(async (req, res) => {
+    const { id } = req.body
+    try {
+        const user = await User.findById({ _id: id })
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+})
 /* 
     @desc Add Users/Register
     @route POST /api/register
@@ -41,11 +50,14 @@ const registerUser = asyncHandler(async (req, res) => {
             department: req.body.department,
             email: req.body.email,
             birthDate: req.body.birthDate,
+            dateHired: req.body.dateHired,
             IDNumber: req.body.IDNumber,
             employeeStatus: req.body.employeeStatus,
             civilStatus: req.body.civilStatus,
             sex: req.body.sex,
             password: hashedPassword,
+            address: req.body.address,
+            contactNumber: req.body.contactNumber
         })
         res.status(200).json({
             message: `User ${user.firstName} ${user.middleName} ${user.lastName} Has been registered`,
@@ -71,23 +83,8 @@ const registerUser = asyncHandler(async (req, res) => {
     @access Private 
 */
 const getMe = asyncHandler(async (req, res) => {
-    /* const { _id, firstName, lastName, middleName, userType, email, sex, department, birthDate, IDNumber, civilStatus } = await User.findById(req.user._id) */
     const info = await User.findById(req.user._id)
-
     try {
-       /*  res.status(200).json({
-            _id: _id,
-            firstName: firstName,
-            lastName: lastName,
-            middleName: middleName,
-            userType: userType,
-            email: email,
-            sex: sex,
-            department: department,
-            birthDate: birthDate,
-            IDNumber: IDNumber,
-            civilStatus: civilStatus
-        }) */
         res.status(200).json(info)
     } catch (error) {
         res.status(400).json(error)
@@ -101,7 +98,9 @@ const getMe = asyncHandler(async (req, res) => {
 */
 const getUsers = asyncHandler(async (req, res) => {
     try {
-        const user = await User.find({}, 'IDNumber firstName middleName lastName email department employeeStatus _id')
+        const user = await User
+            .find({}, 'IDNumber firstName middleName lastName email department employeeStatus _id')
+            .sort({ createdAt: -1 })
         res.status(200).json({ users: user, db: User })
     } catch (error) {
         res.status(500).json(error.message)
@@ -114,14 +113,38 @@ const getUsers = asyncHandler(async (req, res) => {
     @access Private 
 */
 const updateUser = asyncHandler(async (req, res) => {
-    /* const User = await User.findById(req.params.id) */
     try {
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
+        const updatedUser = await User.findByIdAndUpdate(
+            req.body.id,
+            {
+                firstName: req.body.firstName,
+                middleName: req.body.middleName,
+                lastName: req.body.lastName,
+                userType: req.body.userType,
+                department: req.body.department,
+                email: req.body.email,
+                birthDate: req.body.birthDate,
+                dateHired: req.body.dateHired,
+                IDNumber: req.body.IDNumber,
+                employeeStatus: req.body.employeeStatus,
+                civilStatus: req.body.civilStatus,
+                address: req.body.address,
+                contactNumber: req.body.contactNumber,
+                sex: req.body.sex,
+            }, {
             new: true,
         })
         res.status(200).json(updatedUser)
     } catch (error) {
         res.status(400).json(error.message)
+    }
+})
+const getNumUsers = asyncHandler(async (req, res) => {
+    try {
+        const user = await User.count({})
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(500).json(error.message)
     }
 })
 
@@ -132,6 +155,6 @@ const generateToken = (id) => {
     })
 }
 
-export { getUserByEmail, getUsers, registerUser, updateUser, getMe }
+export { getUserByEmail, getUsers, registerUser, updateUser, getMe, getNumUsers, getUserByID }
 
 

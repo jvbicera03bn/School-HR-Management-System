@@ -315,7 +315,8 @@ a:hover {
 }
 
 /* Employee Section */
-.add_employee {
+.add_employee,
+.edit_employee {
     margin: 5vh 4vw;
 }
 
@@ -323,45 +324,77 @@ a:hover {
     margin-bottom: 5vh;
 }
 
-.add_employee form {
-    display: flex;
-    flex-direction: column;
-    gap: 4.1vw
+.edit_employee h1 {
+    margin-bottom: 2vh;
+}
+.edit_employee button.goBackBtn{
+    background-color: var(--darkGray);
+    font-size: 1vw;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 2vh;
+    text-align: center;
 }
 
-.add_employee form .input_group {
+.add_employee form,
+.listOfEmployee form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.7vw
+}
+
+
+.add_employee form .input_group,
+.listOfEmployee form .input_group {
     display: flex;
     flex-direction: row;
     gap: 7vw
 }
 
+.add_employee form .input_group div .titleInput,
+.listOfEmployee form .input_group div .titleInput {
+    font-weight: 700;
+}
+
+.add_employee form .input_group div,
+.listOfEmployee form .input_group div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4vw
+}
+
 .add_employee input,
-.add_employee select {
-    font-size: 1.125rem;
+.add_employee select,
+.listOfEmployee input,
+.listOfEmployee select {
+    font-size: 1.125vw;
     border-radius: .3125rem;
     padding: 15px 2vw;
     border: 2px solid var(--darkGreen);
     width: 15vw;
 }
 
-.add_employee input[type="date"] {
+.add_employee input[type="date"],
+.listOfEmployee input[type="date"] {
     width: 15vw;
 }
 
-.add_employee .email_input {
-    width: 41.2vw;
+.add_employee .email_input,
+.listOfEmployee .email_input {
+    width: 15.2vw;
 }
 
-.add_employee select {
+.add_employee select,
+.listOfEmployee select {
     width: 38.5vh
 }
 
 .third_form_group select {
-    width: 30vh
+    width: 19.4h
 }
 
 .third_form_group {
-    gap: 2.5vw !important
+    gap: vw !important
 }
 
 .submit_button {
@@ -531,14 +564,14 @@ a:hover {
     width: 72.3vw;
     height: 55vh;
     border-radius: 10px;
-    padding: 2vh 1vw
+    padding: 2vh 1vw;
 }
 
 .announcementCards {
     margin: 3vh 2vw;
     display: flex;
     gap: 2vw;
-    justify-content: center;
+    overflow-y: hidden
 }
 
 .AnnouncementCard {
@@ -546,11 +579,11 @@ a:hover {
     border: 2px solid var(--darkGreen);
     border-radius: 10px;
     height: 35vh;
-    width: 15vw;
+    min-width: 10vw;
 }
 
 .announcementCards .AnnouncementCard h3 {
-    font-size: 2vw;
+    font-size: 1vw;
 }
 
 .AnnouncementCard p {
@@ -652,7 +685,7 @@ a:hover {
 }
 
 .EMPAccount .scheduleInfo .table td {
-    padding: 2vh 2.8vw;
+    padding: 1.2vw 2.7vw;
 }
 
 .EMPAccount .scheduleInfo h1 {

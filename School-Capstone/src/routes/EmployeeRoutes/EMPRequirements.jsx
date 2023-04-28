@@ -148,6 +148,7 @@ const EMPRequirements = () => {
                         >
                             <option disable hidden value="">Type of Requirement*</option>
                             <option value="SSS">SSS</option>
+                            <option value="Resume">Resume</option>
                             <option value="PSA">PSA</option>
                             <option value="Certificates">Certificates</option>
                             <option value="Diploma">Diploma</option>

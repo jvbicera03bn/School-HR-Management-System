@@ -124,7 +124,7 @@ const EMPPayslip = () => {
                                 <input type='number'
                                     {...register('sssContrib',
                                         {
-                                            required: "Period is Required"
+                                            required: "Required"
                                         })} />
                             </div>
                             <div className='input'>

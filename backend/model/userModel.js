@@ -32,6 +32,14 @@ const userSchema = mongoose.Schema({
         enum: ['college', 'seniorHigh', 'basicEducation', 'Undefined'],
         default: 'Undefined',
     },
+    isDepHead: {
+        type: Boolean,
+        default: false,
+    },
+    isMainHR: {
+        type: Boolean,
+        default: false,
+    },
     sex: {
         type: String,
         enum: ['female', 'male', 'other'],
@@ -39,10 +47,14 @@ const userSchema = mongoose.Schema({
     },
     birthDate: {
         type: Date,
-        required: [true, `Please add a Birht Date`]
+        required: [true, `Please add a Birth Date`]
+    },
+    dateHired: {
+        type: Date,
+        required: [true, `Please add a dateHired`]
     },
     IDNumber: {
-        type: Number,
+        type: String,
         required: [true, `Please add a ID Number`]
     },
     employeeStatus: {
@@ -52,8 +64,16 @@ const userSchema = mongoose.Schema({
     },
     civilStatus: {
         type: String,
-        enum: ['married', 'divorce', 'seperated', 'widowed','single'],
+        enum: ['married', 'divorce', 'seperated', 'widowed', 'single'],
         required: [true, `Please add a Civil Status`]
+    },
+    address: {
+        type: String,
+        required: [true, `Please add an Adress`]
+    },
+    contactNumber: {
+        type: Number,
+        required: [true, `Please add a Contact Number`]
     },
 }, {
     timestamps: true

@@ -30,30 +30,15 @@ const EMPAccount = () => {
                             <h2>Gender:</h2>
                             <h2>Birthdate:</h2>
                         </div>
-                        {isInfoEdit ?
-                            <div className="infos">
-                                <p>{userInfo.email}</p>
-                                <p>Not Applicable</p>
-                                <p>{userInfo.email}</p>
-                                <p>{userInfo.civilStatus}</p>
-                                <p>{userInfo.sex}</p>
-                                <p>{moment(userInfo.birthDate).format('MMMM, D, YYYY')}</p>
-                            </div>
-                            :
-                            <div className="infos">
-                                <input value={userInfo.email} type="text" />
-                                <input value={"None"} type="text" />
-                                <input value={userInfo.email} type="text" />
-                                <input value={userInfo.civilStatus} type="text" />
-                                <input value={userInfo.sex} type="text" />
-                                <input value={moment(userInfo.birthDate).format('MMMM, D, YYYY')} type="date" />
-                            </div>}
+                        <div className="infos">
+                            <p>{userInfo.email}</p>
+                            <p>Not Applicable</p>
+                            <p>{userInfo.email}</p>
+                            <p>{userInfo.civilStatus}</p>
+                            <p>{userInfo.sex}</p>
+                            <p>{moment(userInfo.birthDate).format('MMMM, D, YYYY')}</p>
+                        </div>
                     </div>
-                    {isInfoEdit ?
-                        <button onClick={onEditInfo} className="editButton">Edit</button>
-                        :
-                        <button onClick={onSave} className="editButton">Save</button>
-                    }
                 </div>
                 <div className='scheduleInfo'>
                     <h1>WORKING HOURS</h1>
