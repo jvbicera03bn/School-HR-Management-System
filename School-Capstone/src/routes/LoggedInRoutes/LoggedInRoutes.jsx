@@ -11,17 +11,23 @@ export const LoggedInRoutes = () => {
         if (userInfo) {
             setUserProfileInfo({
                 name: `${userInfo.firstName} ${userInfo.lastName}`,
-                userType: userInfo.userType
+                userType: userInfo.userType,
+                isMainHR: userInfo.isMainHR,
+                isDepHead: userInfo.isDepHead
             })
         }
-    }, [userInfo]);
+    }, [LoggedInRoutes, userInfo]);
     return (
         <>
             <div className='side_bar'>
                 <div className='profile_info'>
                     <img className='profile_picture' src="/img/profile-placeholder.jpeg" alt="profile" />
                     <h3>{userProfileInfo ? `${userProfileInfo.name}` : `Loading Profile`}</h3>
-                    <p>{userProfileInfo && userProfileInfo.userType == "HR" ? 'Human Resource' : "Employee"}</p>
+                    {!userProfileInfo ?
+                        <p>{`Loading Profile`}</p>
+                        :
+                        <p>{userProfileInfo && userProfileInfo.userType == "HR" ? userInfo.isMainHR ? 'Human Resource' : "Assistant HR" : userInfo.isDepHead ? "Department Head" : "Employee"}</p>
+                    }
                 </div>
                 <div className='school_name'>
                     <h2>ASIATECH</h2>

@@ -57,6 +57,7 @@ const registerUser = asyncHandler(async (req, res) => {
             sex: req.body.sex,
             password: hashedPassword,
             address: req.body.address,
+            createdBy: req.body.createdBy,
             contactNumber: req.body.contactNumber
         })
         res.status(200).json({
@@ -99,8 +100,12 @@ const getMe = asyncHandler(async (req, res) => {
 const getUsers = asyncHandler(async (req, res) => {
     try {
         const user = await User
-            .find({}, 'IDNumber firstName middleName lastName email department employeeStatus _id')
+            .find({}, 'IDNumber firstName middleName lastName email department employeeStatus _id createdBy isMainHR isDepHead')
             .sort({ createdAt: -1 })
+            .populate({
+                path: "createdBy",
+                select: "firstName lastName middleName"
+            })
         res.status(200).json({ users: user, db: User })
     } catch (error) {
         res.status(500).json(error.message)

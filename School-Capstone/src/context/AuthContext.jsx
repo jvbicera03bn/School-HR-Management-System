@@ -34,9 +34,7 @@ export const AuthContextProvider = ({ children }) => {
             <Navigate to="/login" />
         )
     }
-    function register(credentials) {
-
-    }
+ 
     useEffect(() => {
         axios.get(`${baseUrl}/user/getme`, {
             headers: {
@@ -49,6 +47,7 @@ export const AuthContextProvider = ({ children }) => {
             }
         })
     }, [cookies]);
+    console.log(userInfo)
     return (
         <AuthContext.Provider value={{
             baseUrl, logIn,

@@ -44,6 +44,12 @@ const EMPRequest = () => {
             sortable: true
         },
         {
+            name: "Dep Head Status",
+            selector: row => <strong className={status(row.depHeadApproval)}>{uppercaseWords(row.depHeadApproval)}</strong>,
+            sortable: true,
+            center: true,
+        },
+        {
             name: "Date",
             center: true,
             selector: row => moment(row.createdAt).format('MMMM, D, YYYY')
@@ -63,6 +69,7 @@ const EMPRequest = () => {
             }
         })
             .then((response) => {
+                console.log(response)
                 setReqList(response.data)
             })
             .catch((error) => {
@@ -117,6 +124,7 @@ const EMPRequest = () => {
         <div className='EMPRequest'>
             <div className='requestForm'>
                 <h1>Requests Form</h1>
+                <p className="leavesLeft">Leaves Left: {userInfo.leavesLeft}</p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="inputGrp">
                         <label>Request Type*</label>
@@ -128,12 +136,6 @@ const EMPRequest = () => {
                             <option disable hidden value="">Type of Request*</option>
                             <option value="Sick">Sick Leave</option>
                             <option value="Vacation">Vacation Leave</option>
-                         {/*    <option value="Annual">Annual</option>
-                            <option value="Sick">Sick</option>
-                            <option value="Bereavement">Bereavement</option>
-                            <option value="Unpaid">Unpaid</option>
-                            <option value="Casual">Casual</option>
-                            <option value="Compensatory">Compensatory</option> */}
                         </select>
                         <p className='err'>{errors.requestType && errors.requestType.message}</p>
                     </div>
@@ -143,6 +145,11 @@ const EMPRequest = () => {
                             {...register('numberOfDays',
                                 {
                                     required: "Number of Days is Required",
+                                    min: 1,
+                                    max: 4,
+                                    validate: {
+                                        noOfDays: () => userInfo.leavesLeft >= 1 || 'You dont have any leaves left',
+                                    },
                                 })}
                             placeholder='Number of Days*'
                             type="number"

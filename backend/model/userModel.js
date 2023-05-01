@@ -75,6 +75,16 @@ const userSchema = mongoose.Schema({
         type: Number,
         required: [true, `Please add a Contact Number`]
     },
+    createdBy: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+        default: "64341ee08db76f3e25baf22a",
+        required: [true, `Please Add an ID`]
+    },
+    leavesLeft: {
+        type: Number,
+        default: "20",
+    },
 }, {
     timestamps: true
 })

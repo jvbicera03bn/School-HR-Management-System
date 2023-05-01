@@ -10,9 +10,8 @@ const errStyle = {
 
 export const AddEmployee = () => {
     /* Form Functions */
-    const { baseUrl, cookies } = useContext(AuthContext)
+    const { baseUrl, cookies, userInfo } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm()
-    /* Submiit Request not working must fix tomo */
 
     function onSubmit(data) {
         axios.request({
@@ -47,6 +46,7 @@ export const AddEmployee = () => {
                         dateHired: data.dateHired,
                         address: data.address,
                         contactNumber: data.contactNumber,
+                        createdBy: req.body.createdBy,
                         password: `${data.firstName}${data.middleName}${data.lastName}`,
                     }
                 }).then((response) => {

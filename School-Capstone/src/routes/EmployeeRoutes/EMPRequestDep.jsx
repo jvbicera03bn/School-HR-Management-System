@@ -4,7 +4,7 @@ import axios from "axios"
 import moment from "moment"
 import DataTable from 'react-data-table-component'
 
-export const Request = () => {
+export const RequestDepHead = () => {
     const { cookies, baseUrl, userInfo } = useContext(AuthContext);
     const [employeeList, setEmployeeList] = useState()
     const [updateTable, setupdateTable] = useState(false);
@@ -22,7 +22,7 @@ export const Request = () => {
         axios.request({
             method: 'put',
             maxBodyLength: Infinity,
-            url: `${baseUrl}/request/rejectRequest`,
+            url: `${baseUrl}/request/rejectRequestDepHead`,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 "Authorization": `Bearer ${cookies.jwtToken}`
@@ -49,7 +49,7 @@ export const Request = () => {
         axios.request({
             method: 'put',
             maxBodyLength: Infinity,
-            url: `${baseUrl}/request/acceptRequest`,
+            url: `${baseUrl}/request/acceptRequestDepHead`,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 "Authorization": `Bearer ${cookies.jwtToken}`
@@ -72,7 +72,6 @@ export const Request = () => {
                 console.log(error);
             });
     }
-    console.log(employeeList)
     const columns = [
         {
             name: "Full Name",

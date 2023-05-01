@@ -17,11 +17,21 @@ const requestSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    status:{
+    status: {
         type: String,
         enum: ["Checking", "Approved", "Rejected"],
         default: "Checking"
-    }
+    },
+    depHeadApproval: {
+        type: String,
+        enum: ["Checking", "Approved", "Rejected"],
+        default: "Checking"
+    },
+    editedBy: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+        default: 0
+    },
 }, {
     timestamps: true
 });

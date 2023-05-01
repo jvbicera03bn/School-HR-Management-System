@@ -7,7 +7,7 @@ import swal from "sweetalert"
 
 export const Requirements = () => {
 
-    const { cookies, baseUrl } = useContext(AuthContext);
+    const { cookies, baseUrl,userInfo } = useContext(AuthContext);
     const uppercaseWords = str => str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
     const [updateTable, setupdateTable] = useState(false);
     const [documentList, setDocumentList] = useState()
@@ -21,7 +21,9 @@ export const Requirements = () => {
                 "Authorization": `Bearer ${cookies.jwtToken}`
             },
             data: {
+                editedBy: userInfo._id,
                 'document_id': id
+                
             }
         })
             .then((response) => {
@@ -47,6 +49,7 @@ export const Requirements = () => {
                 "Authorization": `Bearer ${cookies.jwtToken}`
             },
             data: {
+                editedBy: userInfo._id,
                 'document_id': id
             }
         })

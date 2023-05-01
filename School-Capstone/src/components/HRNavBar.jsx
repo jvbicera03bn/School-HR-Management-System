@@ -1,10 +1,14 @@
 import { NavLink } from "react-router-dom"
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { AuthContext } from "../context/AuthContext"
 
 export const HRNavBar = () => {
-    const { logOut, useInfo } = useContext(AuthContext)
+    const { logOut, userInfo } = useContext(AuthContext)
     const [empDropDownStatus, setDropDownStatus] = useState(false)
+    const [hrRole, setHrRole] = useState()
+    useEffect(() => {
+        setHrRole(userInfo.isMainHR)
+    }, [userInfo]);
     return (
         <div className='nav_bar'>
             <ul className='first_layer'>
@@ -21,12 +25,14 @@ export const HRNavBar = () => {
                 </li>
                 <li className={empDropDownStatus ? "drop_down_show" : "drop_down_hide"}>
                     <ul className='second_layer'>
-                        <li>
-                            <NavLink to="/hr/employee/addEmployee">
-                                <span className="nav_icon material-symbols-outlined">person_add</span>
-                                Add Employee
-                            </NavLink>
-                        </li>
+                        {hrRole &&
+                            <li>
+                                <NavLink to="/hr/employee/addEmployee">
+                                    <span className="nav_icon material-symbols-outlined">person_add</span>
+                                    Add Employee
+                                </NavLink>
+                            </li>
+                        }
                         <li>
                             <NavLink to="/hr/employee/listofemployee">
                                 <span className="nav_icon material-symbols-outlined">group</span>
@@ -47,12 +53,14 @@ export const HRNavBar = () => {
                         Requirements
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink to="/hr/payroll">
-                        <span className="nav_icon material-symbols-outlined">account_balance</span>
-                        Payroll
-                    </NavLink>
-                </li>
+                {hrRole &&
+                    <li>
+                        <NavLink to="/hr/payroll">
+                            <span className="nav_icon material-symbols-outlined">account_balance</span>
+                            Payroll
+                        </NavLink>
+                    </li>
+                }
                 <li>
                     <NavLink to="/hr/request">
                         <span className="nav_icon material-symbols-outlined">inventory</span>

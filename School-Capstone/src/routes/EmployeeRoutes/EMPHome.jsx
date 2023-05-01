@@ -19,9 +19,9 @@ const EMPHome = () => {
         axios.request(config)
             .then((response) => {
                 setMappedAnnouncement(
-                    response.data.map((announcement) => {
+                    response.data.map((announcement,index) => {
                         return (
-                            <EMPHomeAnnouncementCard date={announcement.createdAt} content={announcement.content} />
+                            <EMPHomeAnnouncementCard key={index} date={announcement.createdAt} content={announcement.content} />
                         )
                     })
                 )

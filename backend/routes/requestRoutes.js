@@ -1,5 +1,5 @@
 import express from "express"
-import { getUserRequest, uploadRequest, approveRequest, rejectRequest, getRequest } from "../controllers/requestController.js"
+import { getUserRequest, uploadRequest, approveRequest, rejectRequest, getRequest, approveRequestDepHead, rejectRequestDepHead } from "../controllers/requestController.js"
 import protect from "../middleware/authMiddleware.js"
 const router = express.Router()
 
@@ -9,6 +9,8 @@ router
     .post("/getUserRequest", protect, getUserRequest)
     .put("/rejectRequest", protect, rejectRequest)
     .put("/acceptRequest", protect, approveRequest)
+    .put("/rejectRequestDepHead", protect, rejectRequestDepHead)
+    .put("/acceptRequestDepHead", protect, approveRequestDepHead)
 
 export default router
 

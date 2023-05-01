@@ -195,7 +195,7 @@ a:hover {
 }
 
 .welcome_banner h1 {
-    font-size: 3.125rem;
+    font-size: 3vw;
 }
 
 .second_section {
@@ -240,6 +240,14 @@ a:hover {
     font-size: 90%;
     padding: 2.3% 2%;
     border: 2px solid var(--darkGreen);
+}
+
+.leavesLeft {
+    background-color: var(--yellow);
+    width: fit-content;
+    padding: .5vw;
+    border-radius: 10px;
+    font-weight: 600;
 }
 
 .announcement_list {
@@ -327,7 +335,8 @@ a:hover {
 .edit_employee h1 {
     margin-bottom: 2vh;
 }
-.edit_employee button.goBackBtn{
+
+.edit_employee button.goBackBtn {
     background-color: var(--darkGray);
     font-size: 1vw;
     font-weight: 600;
@@ -774,7 +783,7 @@ a:hover {
     border-radius: 5px;
     width: 85%;
     margin: 1vw auto;
-    padding: 2% 3%;
+    padding: 0.5vw 3%;
     background-color: var(--darkGreen);
 }
 

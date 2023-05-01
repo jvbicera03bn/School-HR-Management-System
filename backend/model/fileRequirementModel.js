@@ -17,7 +17,12 @@ const fileRequirementSchema = new mongoose.Schema({
         type: String,
         enum: ["validating", "approved", "rejected"],
         default: "validating"
-    }
+    },
+    editedBy: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+        default: 0
+    },
 }, {
     timestamps: true
 });
