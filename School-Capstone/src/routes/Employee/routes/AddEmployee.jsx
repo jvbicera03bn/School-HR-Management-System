@@ -46,7 +46,7 @@ export const AddEmployee = () => {
                         dateHired: data.dateHired,
                         address: data.address,
                         contactNumber: data.contactNumber,
-                        createdBy: req.body.createdBy,
+                        createdBy: data.createdBy,
                         password: `${data.firstName}${data.middleName}${data.lastName}`,
                     }
                 }).then((response) => {
@@ -65,7 +65,6 @@ export const AddEmployee = () => {
                 })
         })
             .catch((error) => {
-                console.log(error)
                 swal({
                     icon: 'error',
                     title: 'Register Failed!',

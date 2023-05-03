@@ -146,7 +146,7 @@ const EMPRequest = () => {
                                 {
                                     required: "Number of Days is Required",
                                     min: 1,
-                                    max: 4,
+                                    max: userInfo.leavesLeft,
                                     validate: {
                                         noOfDays: () => userInfo.leavesLeft >= 1 || 'You dont have any leaves left',
                                     },
